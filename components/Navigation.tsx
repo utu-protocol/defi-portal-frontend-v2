@@ -5,7 +5,7 @@ import { DotsVerticalIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { ellipseAddress } from '../lib/utilities'
 import { useState } from 'react'
 import { LoginIcon, LogoutIcon, StatusOnlineIcon } from '@heroicons/react/outline'
-
+import Image from "next/image"
 import ConnectModal from "../components/ConnectModal"
 import Identicon from "./Identicon"
 const navigation = [
@@ -47,12 +47,12 @@ export default function Navigation({connect, disconnect, address, web3Provider, 
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
-                  <img
+                  <Image
                     className="block lg:hidden h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                    src="https://tailwindui.com/Image/logos/workflow-mark-indigo-500.svg"
                     alt="Workflow"
                   />
-                  <img
+                  <Image
                     className="hidden lg:block h-8 w-auto"
                     src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
                     alt="Workflow"
@@ -100,7 +100,7 @@ export default function Navigation({connect, disconnect, address, web3Provider, 
           //  className="rounded-full bg-green-400 px-3 py-2 text-white hover:bg-green-500"
             type="button" onClick={() => setIsConnectOpen(true)}>
 <p>
-                                       <LoginIcon className="h-6 w-6 ml-3" aria-hidden="true" />
+  <LoginIcon className="h-6 w-6 ml-3" aria-hidden="true" />
    </p> 
             <p className="mt-0.5">CONNECT</p>
           </button>

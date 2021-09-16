@@ -74,7 +74,7 @@ const people = [
                   {people.map((person) => (
                     <tr key={person.email}>
                       <td className="px-2 py-4 whitespace-nowrap">
-                          <Link href="/ocean">
+                          <Link passHref href="/ocean">
                         <div className="flex items-center">
                           {/* <div className="flex-shrink-0 h-10 w-10">
                             <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
