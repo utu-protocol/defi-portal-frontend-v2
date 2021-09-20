@@ -1,12 +1,12 @@
+import { ReactElement, useCallback, useEffect, useReducer } from 'react'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import { providers } from 'ethers'
 import Head from 'next/head'
-import { useCallback, useEffect, useReducer } from 'react'
 import Web3Modal from 'web3modal'
-import { getChainData } from '../lib/utilities'
 
-import Navigation from "../components/Navigation"
-import Table from "../components/Table"
+import { getChainData } from '../../lib/utilities'
+import Navigation from '../Navigation'
+import styles from './layout.module.css'
 
 const INFURA_ID = '460f40a260564ac4a4f4b3fffb032dad'
 
@@ -88,14 +88,24 @@ function reducer(state: StateType, action: ActionType): StateType {
       throw new Error()
   }
 }
+// import { ReactElement } from 'react'
+// import styles from './layout.module.css'
 
-export const Home = (): JSX.Element => {
+export default function Layout({
+  title,
+  children,
+}: {
+  title: string
+  children: ReactElement | ReactElement[]
+}): ReactElement {
   const [state, dispatch] = useReducer(reducer, initialState)
   const { provider, web3Provider, address, chainId } = state
 
+  // const [isLoading, setLoading] = useState(false)
   const connect = useCallback(async function () {
     // This is the initial `provider` that is returned when
     // using web3Modal to connect. Can be MetaMask or WalletConnect.
+    // setLoading(true)
     const provider = await web3Modal.connect()
 
     // We plug the initial `provider` into ethers.js and get back
@@ -107,7 +117,6 @@ export const Home = (): JSX.Element => {
     const address = await signer.getAddress()
 
     const network = await web3Provider.getNetwork()
-
     dispatch({
       type: 'SET_WEB3_PROVIDER',
       provider,
@@ -115,6 +124,7 @@ export const Home = (): JSX.Element => {
       address,
       chainId: network.chainId,
     })
+    // setLoading(false)
   }, [])
 
   const disconnect = useCallback(
@@ -189,16 +199,16 @@ export const Home = (): JSX.Element => {
         <title>Ocean Market by UTU</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-    <div>
-    <Navigation connect={connect} disconnect={disconnect} web3Provider={web3Provider} address={address} chainData={chainData}/>      <h1 className="max-w-7xl px-8 py-12  mx-auto text-3xl font-bold text-white">
-        Ocean Market
-      </h1>
-    </div>
-    <div className="-mt-8">
-      <Table />
-    </div>
+      <Navigation
+        // isLoading={isLoading}
+        connect={connect}
+        disconnect={disconnect}
+        web3Provider={web3Provider}
+        address={address}
+        chainData={chainData}
+      />
+      <h1 className={styles.title}>{title}</h1>
+      <div className={styles.children}>{children}</div>
     </div>
   )
 }
-
-export default Home
