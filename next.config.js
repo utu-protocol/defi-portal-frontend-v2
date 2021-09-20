@@ -1,5 +1,5 @@
 module.exports = {
-    images: {
-      domains: ['tailwindui.com'],
-    },
-  }
+  images: {
+    domains: ['tailwindui.com'],
+  },
+}
