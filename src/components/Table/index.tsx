@@ -11,7 +11,7 @@ export default function Table({ list }: { list: any[] }): ReactElement {
             <table className="min-w-full divide-y divide-gray-200">
               <Header />
               <tbody className="bg-white divide-y divide-gray-200">
-                {list.map((item) => (
+                {list?.map((item) => (
                   <Row
                     key={`table-row-${item.entity.properties.DID}`}
                     data={item.entity}
