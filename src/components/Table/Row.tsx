@@ -13,7 +13,7 @@ export default function Row({ data }: { data: any }): ReactElement {
             <div className="ml-4">
               <>
                 <div className="text-sm font-medium text-gray-900">
-                  {data.properties.Name}
+                  {data.name}
                 </div>
                 <div className="text-sm text-gray-500">
                   {data.properties.PublishedBy}
@@ -41,7 +41,7 @@ export default function Row({ data }: { data: any }): ReactElement {
         <div className="text-sm text-gray-500">{data.department}</div>
       </td>
       <td className="bg-yellow-50 border-b border-yellow-200 border-b-yellow-200 px-6 py-4 text-sm text-gray-500">
-        {data.properties.summaryText}
+        {data.summaryText}
       </td>
       <td className="px-6 py-4 text-left text-sm font-medium">
         <a href="#" className="font-light hover:text-indigo-900">

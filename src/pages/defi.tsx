@@ -1,12 +1,37 @@
-import { ReactElement } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 
 import Table from '../components/Table'
-import Layout from '../components/Layout/Layout'
-
+import Layout from '../components/Layout'
+import { useSelector } from 'react-redux'
+// 0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79
 export const Home = (): ReactElement => {
+  const [list, setList] = useState([])
+  const { address } = useSelector((state: any) => ({
+    address: state.address,
+  }))
+  const fetchData = async () => {
+    const data = {
+      sourceCriteria: JSON.stringify({
+        type: 'Address',
+        ids: { address },
+      }),
+      targetType: 'DefiPortal',
+    }
+    const res = await fetch(
+      `https://stage-api.ututrust.com/core-api/ranking?${new URLSearchParams(
+        Object.entries(data)
+      ).toString()}`
+    )
+    const { result } = await res.json()
+    setList(result)
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
   return (
     <Layout title="Ocean Market">
-      <Table list={[]} />
+      <Table list={list} />
     </Layout>
   )
 }

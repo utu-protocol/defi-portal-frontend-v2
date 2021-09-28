@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 
 import Item from '../../components/Item'
-import Layout from '../../components/Layout/Layout'
+import Layout from '../../components/Layout'
 
 export default function Ocean(): ReactElement {
   return (
