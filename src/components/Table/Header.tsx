@@ -19,7 +19,7 @@ const headers = [
     highlight: true,
   },
   {
-    label: 'Total Consumption',
+    label: 'Times consumed',
     highlight: false,
   },
   // More people...
