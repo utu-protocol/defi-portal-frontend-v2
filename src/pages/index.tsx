@@ -43,6 +43,7 @@ export const Home = (): ReactElement => {
         }
       }
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.log(err)
     }
   }
@@ -52,7 +53,7 @@ export const Home = (): ReactElement => {
     // title="Tailored DeFi recommendations"
     // subtitle="From the people you trust."
     >
-      <div className="max-w-screen-lg mx-auto mx-5">
+      <div className="max-w-screen-lg mx-5">
         <h2 className="text-3xl leading-9 font-extrabold tracking-tight text-white sm:text-4xl sm:leading-10">
           Tailored DeFi recommendations
           <br />
@@ -78,7 +79,7 @@ export const Home = (): ReactElement => {
               onClick={openDashboard}
               className="w-full flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-black hover:shadow-md focus:outline-none transition duration-150 ease-in-out"
             >
-              Let's Go!
+              Let&aposs Go!
             </button>
           </div>
           <p className="ml-4 mr-2 mt-3">or</p>
@@ -90,10 +91,10 @@ export const Home = (): ReactElement => {
             >
               Connect Wallet
             </button>
+            {errorMsg}
           </div>
         </form>
       </div>
-      {/* <Table /> */}
     </Layout>
   )
 }

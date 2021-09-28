@@ -1,12 +1,12 @@
 /* This example requires Tailwind CSS v2.0+ */
-const stats = [
-  { name: 'Total Subscribers', stat: '71,897', stat2: '13 times' },
-  { name: 'Avg. Open Rate', stat: '58.16%', stat2: '13 times' },
-  { name: 'Avg. Click Rate', stat: '24.57%', stat2: '13 times' },
-  { name: 'Avg. Click Rate', stat: '24.57%', stat2: '13 times' },
-]
+// const stats = [
+//   { name: 'Total Subscribers', stat: '71,897', stat2: '13 times' },
+//   { name: 'Avg. Open Rate', stat: '58.16%', stat2: '13 times' },
+//   { name: 'Avg. Click Rate', stat: '24.57%', stat2: '13 times' },
+//   { name: 'Avg. Click Rate', stat: '24.57%', stat2: '13 times' },
+// ]
 
-export function CardDetails() {
+export function CardDetails(): JSX.Element {
   const items = [
     { id: 1 },
     { id: 1 },
@@ -41,7 +41,7 @@ export function CardDetails() {
   )
 }
 
-export default function UsageCard() {
+export default function UsageCard(): JSX.Element {
   return (
     <div className="py-6">
       <h3 className="text-lg leading-6 font-medium text-gray-900">
