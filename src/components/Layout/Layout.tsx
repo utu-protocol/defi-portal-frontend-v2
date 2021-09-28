@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-page-custom-font */
 import { ReactElement, useCallback, useEffect, useReducer } from 'react'
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import { providers } from 'ethers'
@@ -93,6 +94,7 @@ function reducer(state: StateType, action: ActionType): StateType {
 
 export default function Layout({
   title,
+  subtitle,
   children,
 }: {
   title: string
@@ -198,6 +200,16 @@ export default function Layout({
       <Head>
         <title>Ocean Market by UTU</title>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="true"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <Navigation
         // isLoading={isLoading}
@@ -208,6 +220,7 @@ export default function Layout({
         chainData={chainData}
       />
       <h1 className={styles.title}>{title}</h1>
+      <h1 className={styles.title}>{subtitle}</h1>
       <div className={styles.children}>{children}</div>
     </div>
   )

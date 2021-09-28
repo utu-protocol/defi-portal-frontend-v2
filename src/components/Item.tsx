@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { ReactElement } from 'react'
-import Detail from './Detail'
+import Detail from './AssetDetail'
 
-/* This example requires Tailwind CSS v2.0+ */
+/* This example requires Tailwind CSS v2{people && .0+ */
+
 const people = [
   {
     name: '👋 Data Union.app - Image & Annotation Vault :e',
@@ -10,7 +11,7 @@ const people = [
     department: 'Optimization',
     consumedAssets: '9',
     providedLiquidity: '3',
-    email: 'QUICRA-0',
+    code: 'QUICRA-0',
     status: 'Active',
     totalConsumption: '302,592,120',
     image:
@@ -23,7 +24,7 @@ const people = [
     consumedAssets: '0',
     providedLiquidity: '0',
     totalConsumption: '154,787,432',
-    email: 'LUMSTA-42',
+    code: 'LUMSTA-42',
     status: 'Purgatory',
 
     image:
@@ -71,9 +72,9 @@ export default function Example(): ReactElement {
                     </th> */}
                 </tr>
               </thead>
-              <tbody className="max-w-xs bg-white divide-y divide-gray-200">
+              <tbody className="max-w-xs bg-white divide-y divide-gray-20{people && 0">
                 {people?.map((person) => (
-                  <tr className="max-w-xs" key={person.email}>
+                  <tr className="max-w-xs" key={person.code}>
                     <td className="max-w-md px-2 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         {/* <div className="flex-shrink-0 h-10 w-10">
@@ -87,7 +88,7 @@ export default function Example(): ReactElement {
                                 {person.name}
                               </div>
                               <div className="text-sm text-gray-500">
-                                {person.email}
+                                {person.code}
                               </div>
                             </>
                           </Link>
@@ -115,10 +116,7 @@ export default function Example(): ReactElement {
                 ))}
               </tbody>
             </table>
-            <div className="bg-white w-full">
-              <Detail />
-              Hello
-            </div>
+            <div className="bg-white w-full">{people && <Detail />}</div>
           </div>
         </div>
       </div>
