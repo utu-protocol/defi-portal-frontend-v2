@@ -25,7 +25,6 @@ export const Home = (): ReactElement => {
     )
     const { result } = await res.json()
     setList(result)
-    // console.log(result);
   }
 
   useEffect(() => {
