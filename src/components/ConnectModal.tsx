@@ -1,7 +1,10 @@
 import Image from 'next/image'
 import { Dialog, Transition } from '@headlessui/react'
-import React, { Fragment, useRef, ReactElement } from 'react'
+import React, { Fragment, useRef, ReactElement, useState } from 'react'
 import { XIcon, LoginIcon, UserAddIcon } from '@heroicons/react/outline'
+import { useDispatch } from 'react-redux'
+
+import { storeAddress } from '../redux/actions/wallet.actions'
 
 export type ConnectModalProps = {
   connect: VoidFunction
@@ -15,34 +18,26 @@ export default function ConnectModal({
   setOpen,
 }: ConnectModalProps): ReactElement {
   //   const [open, setOpen] = useState(open)
-
+  const dispatch = useDispatch()
+  const [address, setAddress] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
   const cancelButtonRef = useRef(null)
-  const openDashboard = () => {
-    // if (ethereum_address.isAddress(ethAddress)) {
-    //   history.push('/dashboard');
-    // } else {
-    //   setErrorMsg('Not a valid Ethereum address')
-    // }
+  const openDashboard = async () => {
+    const result = await dispatch(storeAddress({ address }))
+    if (!result) {
+      setErrorMsg('Please provide a valid Ethereum address')
+      return
+    }
   }
 
   const onChangeAddress = (_e: any) => {
-    // dispatch(setMetaAddress(e.target.value));
-    // setEthAddress(e.target.value);
-    // setErrorMsg('');
+    if (errorMsg) {
+      setErrorMsg('')
+    }
+
+    setAddress(_e.target.value)
   }
 
-  //   const connectWallet = async () => {
-  //     try {
-  //       if (onboard) {
-  //         const selected = await onboard.walletSelect();
-  //         if (selected) {
-  //           await onboard.walletCheck();
-  //         }
-  //       }
-  //     } catch (err) {
-  //       console.log(err);
-  //     }
-  //   }
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -104,17 +99,18 @@ export default function ConnectModal({
                     </div>
                   </div>
                 </div>
-                <form
-                  className="mt-8 flex flex-col"
-                  aria-labelledby="newsletter-headline"
-                >
+                <div className="mt-8 flex flex-col">
                   <input
                     onChange={onChangeAddress}
                     aria-label="address"
                     type="text"
+                    value={address}
                     className="font-mono appearance-none w-full px-5 py-3 border border-gray-300 text-base leading-6 rounded-md text-gray-900 bg-white placeholder-gray-500 focus:outline-none focus:shadow-outline focus:border-blue-300 transition duration-150 ease-in-out sm:max-w-lg"
                     placeholder="Enter ENS domain or a Ethereum address"
                   />
+                  <p className="text-red-500 text-sm mt-2">
+                    {errorMsg && errorMsg}
+                  </p>
                   <div className="flex rounded-md sm:mt-0  sm:flex-shrink-0">
                     <button
                       onClick={openDashboard}
@@ -132,7 +128,7 @@ export default function ConnectModal({
                     CONNECT YOUR WALLET
                     <LoginIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
-                </form>
+                </div>
               </div>
               <div className="z-0 hidden sm:block absolute top-0 right-0 pt-4 pr-4">
                 <button

@@ -4,6 +4,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { DotsVerticalIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { ellipseAddress } from '../lib/utilities'
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 import {
   LoginIcon,
@@ -14,9 +15,8 @@ import {
 import ConnectModal from '../components/ConnectModal'
 import UserAvatar from './UserAvatar'
 const navigation = [
-  // { name: 'Overview', href: '/', current: false },
-  { name: 'DeFi', href: '/defi', current: false },
-  { name: 'Ocean', href: '/ocean', current: true },
+  { name: 'DeFi', href: '/defi' },
+  { name: 'Ocean', href: '/ocean' },
 ]
 
 function classNames(...classes) {
@@ -41,8 +41,7 @@ export default function Navigation({
   if (typeof window !== 'undefined') {
     web3p = localStorage?.getItem('WEB3_CONNECT_CACHED_PROVIDER')
   }
-  // eslint-disable-next-line no-console
-  console.log(address)
+  const router = useRouter()
   return (
     <>
       <Disclosure
@@ -109,19 +108,21 @@ export default function Navigation({
                   <div className="hidden sm:block sm:ml-6">
                     <div className="flex space-x-4">
                       {navigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className={classNames(
-                            item.current
-                              ? 'bg-gray-900 text-white'
-                              : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                            'px-3 py-2 rounded-md text-sm font-medium'
-                          )}
-                          aria-current={item.current ? 'page' : undefined}
-                        >
-                          {item.name}
-                        </a>
+                        <Link key={item.name} href={item.href}>
+                          <a
+                            className={classNames(
+                              item.href === router.pathname
+                                ? 'bg-gray-900 text-white'
+                                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                              'px-3 py-2 rounded-md text-sm font-medium'
+                            )}
+                            aria-current={
+                              item.href === router.pathname ? 'page' : undefined
+                            }
+                          >
+                            {item.name}
+                          </a>
+                        </Link>
                       ))}
                     </div>
                   </div>
@@ -261,19 +262,21 @@ export default function Navigation({
             <Disclosure.Panel className="sm:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1">
                 {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className={classNames(
-                      item.current
-                        ? 'bg-gray-900 text-white'
-                        : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'block px-3 py-2 rounded-md text-base font-medium'
-                    )}
-                    aria-current={item.current ? 'page' : undefined}
-                  >
-                    {item.name}
-                  </a>
+                  <Link key={item.name} href={item.href}>
+                    <a
+                      className={classNames(
+                        item.href === router.pathname
+                          ? 'bg-gray-900 text-white'
+                          : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                        'block px-3 py-2 rounded-md text-base font-medium'
+                      )}
+                      aria-current={
+                        item.href === router.pathname ? 'page' : undefined
+                      }
+                    >
+                      {item.name}
+                    </a>
+                  </Link>
                 ))}
               </div>
             </Disclosure.Panel>
