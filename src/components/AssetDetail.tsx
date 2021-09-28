@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { XIcon } from '@heroicons/react/outline'
 import SummaryStats from './SummaryStats'
-import UsageCard from './UsageCard'
+import UsageCard from './Cards/Usage'
 import ReactMarkdown from 'react-markdown'
 
 export function CloseButton(): ReactElement {
@@ -23,8 +23,8 @@ export default function Detail({ details, stats }: any): ReactElement {
       {/* <p className="font-medium text-gray-500 py-3 text-xs">
         DATA ASSET DETAIL
       </p> */}
-      <div className="divide-y mr-12">
-        <div>
+      <div className="mr-12">
+        <div className="border-b border-solid border-gray-200">
           <div className="flex flex-row items-center justify-between font-medium text-gray-500 text-xs border-b border-gray-200 -mr-12 pr-3">
             <div className="py-3">
               <span className="block">DATA ASSET DETAIL</span>
@@ -32,16 +32,36 @@ export default function Detail({ details, stats }: any): ReactElement {
             <CloseButton />
           </div>
           <h2 className="pt-12 text-3xl font-bold">{details.name}</h2>
-          <div className="ml-0 pr-4 py-5 flex flex-row justify-between">
-            <p>By {details.properties.PublishedBy}</p>
+          <div className="ml-0 pr-4 py-5 flex flex-row justify-between text-gray-500">
+            <p>
+              By{' '}
+              <span className="text-gray-900">
+                {details.properties.PublishedBy}
+              </span>
+            </p>
             <p>{4} Data assets </p>
           </div>
         </div>
-        <div className="py-5 text-gray-700">
+        <div className="flex mt-5 text-sm leading-5 font-normal text-gray-500 justify-between">
+          <div className="relative">Updated 3 months ago</div>
+          <div>
+            <span
+              className={`px-3 py-0.5 inline-flex text-sm leading-5 font-medium rounded-full ${
+                !details.properties.Purgatory
+                  ? 'bg-green-100 text-green-800'
+                  : 'bg-red-100 text-red-800'
+              }`}
+            >
+              {!details.properties.Purgatory ? 'Active' : 'Purgatory'}
+            </span>
+          </div>
+        </div>
+
+        <div className="text-gray-700 text-base leading-6 font-normal mt-7 mb-16">
           <ReactMarkdown>{details.properties.Description}</ReactMarkdown>
         </div>
+        <UsageCard stats={stats} />
         <SummaryStats stats={stats} />
-        <UsageCard />
       </div>
     </div>
   )

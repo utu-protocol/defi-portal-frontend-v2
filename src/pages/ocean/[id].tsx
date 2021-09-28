@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
 import { ReactElement, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Item from '../../components/AssetOverview'
 import Layout from '../../components/Layout'
 import AssetDetail from '../../components/AssetDetail'
+import { GetStaticPaths, GetStaticProps } from 'next'
 
 const stats = {
   status: 'success',
@@ -32,15 +34,27 @@ const stats = {
         consumers: {
           total: 8,
           sampleAddresses: [
-            { address: '<address>', lastTimestamp: '<datetime>' },
-            { address: '<address>', lastTimestamp: '<datetime>' },
+            {
+              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
+              lastTimestamp: '2d ago',
+            },
+            {
+              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
+              lastTimestamp: '1m ago',
+            },
           ],
         },
         liquidityProviders: {
           total: 3,
           sampleAddresses: [
-            { address: '<address>', amount: '<amount>' },
-            { address: '<address>', amount: '<amount>' },
+            {
+              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
+              amount: '10k',
+            },
+            {
+              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
+              amount: '2k',
+            },
           ],
         },
       },
@@ -49,29 +63,40 @@ const stats = {
           total: 8,
           sampleAddresses: [
             {
-              address: '<address>',
-              lastTimestamp: '<datetime>',
+              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
+              lastTimestamp: '2d ago',
             },
-            { address: '<address>', lastTimestamp: '<datetime>' },
+            {
+              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
+              lastTimestamp: '1m ago',
+            },
           ],
         },
         liquidityProviders: {
           total: 3,
           sampleAddresses: [
-            { address: '<address>', amount: '<amount>' },
-            { address: '<address>', amount: '<amount>' },
+            {
+              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
+              amount: '10k',
+            },
+            {
+              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
+              amount: '2k',
+            },
           ],
         },
       },
     },
   },
 }
-export default function Ocean(): ReactElement {
+export default function Ocean({ id }: { id: string }): ReactElement {
   const [details, setDetails] = useState(null)
 
   const { address } = useSelector((state: any) => ({
     address: state.address,
   }))
+
+  console.log(id)
 
   const fetchData = async () => {
     const data = {
@@ -114,4 +139,24 @@ export default function Ocean(): ReactElement {
       </div>
     </Layout>
   )
+}
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const id = params.id
+
+  return {
+    props: {
+      id,
+    },
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = () => {
+  // We'll pre-render only these paths at build time.
+  // { fallback: blocking } will server-render pages
+  // on-demand if the path doesn't exist.
+  return {
+    paths: [],
+    fallback: true,
+  }
 }
