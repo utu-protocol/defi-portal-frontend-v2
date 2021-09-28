@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import Onboard from 'bnc-onboard'
 import { API } from 'bnc-onboard/dist/src/interfaces'
 import { useDispatch } from 'react-redux'
@@ -16,6 +18,7 @@ const initializationOptions = {
 
 let onboard: API | undefined
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function useOnboard() {
   // const history = useHistory();
   const dispatch = useDispatch()

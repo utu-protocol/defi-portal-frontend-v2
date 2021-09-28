@@ -1,9 +1,11 @@
+/* eslint-disable no-console */
 import { useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 import { getSortedProviders, IProtocol } from '../api'
 import { RootState } from '../store/rootReducer'
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function useProtocols() {
   const [protocols, setProtocols] = useState<IProtocol[]>()
 

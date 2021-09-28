@@ -94,10 +94,9 @@ function reducer(state: StateType, action: ActionType): StateType {
 
 export default function Layout({
   title,
-  subtitle,
   children,
 }: {
-  title: string
+  title?: string
   children: ReactElement | ReactElement[]
 }): ReactElement {
   const [state, dispatch] = useReducer(reducer, initialState)
@@ -219,8 +218,7 @@ export default function Layout({
         address={address}
         chainData={chainData}
       />
-      <h1 className={styles.title}>{title}</h1>
-      <h1 className={styles.title}>{subtitle}</h1>
+      {title && <h1 className={styles.title}>{title}</h1>}
       <div className={styles.children}>{children}</div>
     </div>
   )

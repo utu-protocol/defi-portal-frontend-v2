@@ -6,7 +6,7 @@ const stats = [
   { name: 'Avg. Click Rate', stat: '24.57%', stat2: '13 times' },
 ]
 
-export default function SummaryStats() {
+export default function SummaryStats(): JSX.Element {
   return (
     <div className="py-6">
       <h3 className="text-lg leading-6 font-medium text-gray-900">Summary</h3>
