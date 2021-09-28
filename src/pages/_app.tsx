@@ -1,9 +1,14 @@
 import { ReactElement } from 'react'
 import type { AppProps, NextWebVitalsMetric } from 'next/app'
 import '../styles/globals.css'
-
+import { Provider } from 'react-redux'
+import store from '../store/store'
 function MyApp({ Component, pageProps }: AppProps): ReactElement {
-  return <Component {...pageProps} />
+  return (
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
+  )
 }
 
 export function reportWebVitals(metric: NextWebVitalsMetric): void {

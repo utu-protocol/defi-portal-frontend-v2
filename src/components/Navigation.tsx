@@ -4,6 +4,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { DotsVerticalIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { ellipseAddress } from '../lib/utilities'
 import { useState } from 'react'
+import Link from 'next/link'
 import {
   LoginIcon,
   LogoutIcon,
@@ -13,7 +14,7 @@ import {
 import ConnectModal from '../components/ConnectModal'
 import UserAvatar from './UserAvatar'
 const navigation = [
-  { name: 'Overview', href: '/', current: false },
+  // { name: 'Overview', href: '/', current: false },
   { name: 'DeFi', href: '/defi', current: false },
   { name: 'Ocean', href: '/ocean', current: true },
 ]
@@ -40,7 +41,8 @@ export default function Navigation({
   if (typeof window !== 'undefined') {
     web3p = localStorage?.getItem('WEB3_CONNECT_CACHED_PROVIDER')
   }
-
+  // eslint-disable-next-line no-console
+  console.log(address)
   return (
     <>
       <Disclosure
@@ -62,19 +64,48 @@ export default function Navigation({
                     )}
                   </Disclosure.Button>
                 </div>
-                <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                  <div className="flex-shrink-0 flex items-center">
-                    <img
-                      className="block lg:hidden h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                      alt="Workflow"
-                    />
-                    <img
-                      className="hidden lg:block h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                      alt="Workflow"
-                    />
-                  </div>
+                <div className="flex">
+                  <Link href="/">
+                    <a className="flex">
+                      <div className="flex-shrink-0">
+                        <svg
+                          className="w-8 h-8 mr-2 ml-12 sm:ml-0"
+                          width="64"
+                          height="64"
+                          viewBox="0 0 64 64"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M0.403013 37.3991L26.6009 63.597C13.2225 61.3356 2.66442 50.7775 0.403013 37.3991Z"
+                            fill="#fff"
+                          ></path>
+                          <path
+                            d="M0 30.2868L33.7132 64C35.7182 63.8929 37.6742 63.6013 39.5645 63.142L0.85799 24.4355C0.398679 26.3259 0.10713 28.2818 0 30.2868Z"
+                            fill="#fff"
+                          ></path>
+                          <path
+                            d="M2.53593 19.4042L44.5958 61.4641C46.1277 60.8066 47.598 60.0331 48.9956 59.1546L4.84543 15.0044C3.96691 16.402 3.19339 17.8723 2.53593 19.4042Z"
+                            fill="#fff"
+                          ></path>
+                          <path
+                            d="M7.69501 11.1447C13.5677 4.32093 22.2677 0 31.9769 0C49.6628 0 64 14.3372 64 32.0231C64 41.7323 59.6791 50.4323 52.8553 56.305L7.69501 11.1447Z"
+                            fill="#fff"
+                          ></path>
+                        </svg>
+                      </div>
+                      <div className="flex-shrink-0 hidden md:block">
+                        <h1 className="text-xl font-bold text-white leading-none">
+                          DeFi Recommendation Portal
+                        </h1>
+                        <h2 className="text-xs font-medium text-white text-opacity-70 leading-none">
+                          DeFi recommendations from your social circle
+                          {/* Powered by UTU Trust Engine */}
+                        </h2>
+                      </div>
+                    </a>
+                  </Link>
+
                   <div className="hidden sm:block sm:ml-6">
                     <div className="flex space-x-4">
                       {navigation.map((item) => (
@@ -95,13 +126,28 @@ export default function Navigation({
                     </div>
                   </div>
                 </div>
+
+                {/* <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                  <div className="flex-shrink-0 flex items-center">
+                    <img
+                      className="block lg:hidden h-8 w-auto"
+                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                      alt="Workflow"
+                    />
+                    <img
+                      className="hidden lg:block h-8 w-auto"
+                      src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                      alt="Workflow"
+                    />
+                  </div>
+                </div> */}
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   {/* Profile dropdown */}
                   {address && (
                     <div className="grid">
                       <div>
                         {/* <p className="mb-1">Address:</p> */}
-                        <p className=" rounded-full px-2 py-1 bg-gray-900 text-white text-xs bg-opacity-50 text-opacity-90 mx-2">
+                        <p className=" rounded-full hidden md:block px-2 py-1 bg-gray-900 text-white text-xs bg-opacity-50 text-opacity-90 mx-2">
                           {ellipseAddress(address)}
                         </p>
                       </div>
@@ -114,6 +160,7 @@ export default function Navigation({
             </div>
           </div>
         )} */}
+
                   {!address && !web3p && !web3Provider && (
                     <button
                       className="w-full border-white border-2 space-x-3 flex-row flex justify-between  rounded-md shadow pr-3 py-2 bg-transparent text-white font-mediumnhover:bg-white hover:bg-white hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"

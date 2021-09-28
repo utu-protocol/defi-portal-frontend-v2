@@ -6,7 +6,7 @@ const people = [
   {
     name: '👋 Data Union.app - Image & Annotation Vault :e',
     title: ' DataUnion.app',
-    department: 'Optimization',
+    publishedAt: '3 months ago',
     consumedAssets: '9',
     providedLiquidity: '3',
     email: 'QUICRA-0',
@@ -18,7 +18,7 @@ const people = [
   {
     name: "Product Pages of 1'044'709 Products on Amazon.com...",
     title: 'Regional Paradigm Technician',
-    department: 'Optimization',
+    publishedAt: '9 months ago',
     consumedAssets: '0',
     providedLiquidity: '0',
     totalConsumption: '154,787,432',
@@ -60,7 +60,7 @@ export default function Table(): ReactElement {
                   </th>
                   <th
                     scope="col"
-                    className="bg-yellow-100 border-b border-yellow-200 px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider"
+                    className="bg-yellow-100 border-b border-utu-primary px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider"
                   >
                     Your Network
                   </th>
@@ -77,7 +77,7 @@ export default function Table(): ReactElement {
                 {people.map((person) => (
                   <tr key={person.email}>
                     <td className="px-2 py-4 whitespace-nowrap">
-                      <Link passHref href="/ocean">
+                      <Link passHref href="/ocean/detail">
                         <div className="flex items-center">
                           {/* <div className="flex-shrink-0 h-10 w-10">
                             <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
@@ -111,7 +111,7 @@ export default function Table(): ReactElement {
                         {person.title}
                       </div>
                       <div className="text-sm text-gray-500">
-                        {person.department}
+                        {person.publishedAt}
                       </div>
                     </td>
                     <td className="bg-yellow-50 border-b border-yellow-200 border-b-yellow-200 px-6 py-4 whitespace-nowrap text-sm text-gray-500">
