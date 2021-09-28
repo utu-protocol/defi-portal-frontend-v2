@@ -32,7 +32,7 @@ export const Home = (): ReactElement => {
     // title="Tailored DeFi recommendations"
     // subtitle="From the people you trust."
     >
-      <div className="max-w-screen-lg mx-5">
+      <div className="max-w-screen-lg mx-5 pt-44 mt-2">
         <h2 className="text-3xl leading-9 font-extrabold tracking-tight text-white sm:text-4xl sm:leading-10">
           Tailored DeFi recommendations
           <br />
