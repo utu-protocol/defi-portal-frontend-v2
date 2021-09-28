@@ -1,10 +1,10 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import metaMaskSlice from '../reduxSlice/metaMaskSlice';
+import { combineReducers } from '@reduxjs/toolkit'
+import metaMaskSlice from '../reduxSlice/metaMaskSlice'
 
 const rootReducer = combineReducers({
   metaMask: metaMaskSlice,
-});
+})
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof rootReducer>
 
-export default rootReducer;
+export default rootReducer

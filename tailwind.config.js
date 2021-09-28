@@ -6,13 +6,13 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-      fontFamily: {
-       'sans': ['Inter', 'sans-serif'],
+    fontFamily: {
+      sans: ['Inter', 'sans-serif'],
       //  'serif': ['ui-serif', 'serif'],
       //  'mono': ['ui-monospace', 'monospace'],
       //  'display': ['Oswald'],
       //  'body': ['"Open Sans"'],
-      },
+    },
     extend: {
       colors: {
         primary: '#4F46E5',
@@ -20,8 +20,8 @@ module.exports = {
           primary: '#FFDD33',
           400: '#FFF6C7',
           500: '#FFFBEB',
-          900: '#FFDD33'
-        }
+          900: '#FFDD33',
+        },
       },
     },
   },

@@ -1,2 +1,2 @@
-export * from './protocolsHooks';
-export * from './onboardHooks';
+export * from './protocolsHooks'
+export * from './onboardHooks'
