@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Layout from '../components/Layout'
 
 import { connect, storeAddress } from '../redux/actions/wallet.actions'
+// import Link from 'next/link'
 
 export const Home = (): ReactElement => {
   const dispatch = useDispatch()
@@ -27,12 +28,20 @@ export const Home = (): ReactElement => {
     setEthAddress(e.target.value)
   }
 
+  // const navigation = [
+  //   { name: 'DeFi', href: '/defi' },
+  //   { name: 'Ocean', href: '/ocean' },
+  // ]
+
+  // function classNames(...classes) {
+  //   return classes.filter(Boolean).join(' ')
+  // }
   return (
     <Layout
     // title="Tailored DeFi recommendations"
     // subtitle="From the people you trust."
     >
-      <div className="max-w-screen-lg mx-5 pt-44 mt-2">
+      <div className="max-w-screen-lg mx-auto px-5 pt-44 mt-2">
         <h2 className="text-3xl leading-9 font-extrabold tracking-tight text-white sm:text-4xl sm:leading-10">
           Tailored DeFi recommendations
           <br />
@@ -82,6 +91,25 @@ export const Home = (): ReactElement => {
             <p className="text-red-500 text-sm mt-1">{errorMsg && errorMsg}</p>
           </>
         )}
+        {/* {address && (
+          <div className="flex py-10 space-x-4">
+            {navigation.map((item) => (
+              <Link key={item.name} href={item.href}>
+                <a
+                  className={classNames(
+                    'bg-primary text-white hover:bg-gray-700 hover:text-white',
+                    'px-3 py-2 rounded-md text-sm font-medium'
+                  )}
+                  aria-current={
+                    item.href === router.pathname ? 'page' : undefined
+                  }
+                >
+                  {item.name}
+                </a>
+              </Link>
+            ))}
+          </div>
+        )} */}
       </div>
     </Layout>
   )
