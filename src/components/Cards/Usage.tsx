@@ -67,12 +67,12 @@ export function CardDetails({
         </div>
       </div>
       <div className="mb-12">
-        <div className="flex flex-row">
+        <div className="flex flex-row px-5">
           <div className="flex flex-col w-1/2">
             {details.consumers.sampleAddresses.slice(0, 2).map((sample, i) => (
               <div
                 key={`consumer-list-item${i}`}
-                className="flex items-center py-2 border-solid border-b border-gray-200 px-5 text-sm leading-5 font-normal text-gray-500"
+                className="flex items-center py-2 border-solid border-b border-gray-200 text-sm leading-5 font-normal text-gray-500 pr-5"
               >
                 <UserAvatar address={sample.address} size={32} />
                 <span className="block pl-1.5">
@@ -88,7 +88,7 @@ export function CardDetails({
               .map((sample, i) => (
                 <div
                   key={`liquidity-list-item${i}`}
-                  className="flex items-center py-2 border-solid border-b border-gray-200 px-5 text-sm leading-5 font-normal text-gray-500"
+                  className="flex items-center py-2 border-solid border-b border-gray-200 text-sm leading-5 font-normal text-gray-500 pl-5"
                 >
                   <UserAvatar address={sample.address} size={32} />
                   <span className="block pl-1.5">
