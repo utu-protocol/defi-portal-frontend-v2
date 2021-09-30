@@ -3,6 +3,8 @@ import { XIcon } from '@heroicons/react/outline'
 import SummaryStats from './SummaryStats'
 import UsageCard from './Cards/Usage'
 import ReactMarkdown from 'react-markdown'
+import Truncate from 'lodash.truncate'
+import { useState } from 'react'
 
 export function CloseButton(): ReactElement {
   return (
@@ -18,6 +20,7 @@ export function CloseButton(): ReactElement {
 }
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Detail({ details, stats }: any): ReactElement {
+  const [expandText, setExpandText] = useState(false)
   return (
     <div className="border-b-gray-100 pb-2 ml-12 divide-y">
       {/* <p className="font-medium text-gray-500 py-3 text-xs">
@@ -58,7 +61,36 @@ export default function Detail({ details, stats }: any): ReactElement {
         </div>
 
         <div className="text-gray-700 text-base leading-6 font-normal mt-7 mb-16">
-          <ReactMarkdown>{details.properties.Description}</ReactMarkdown>
+          {!expandText ? (
+            <>
+              <ReactMarkdown className="inline-block">
+                {Truncate(details.properties.Description, {
+                  length: 310,
+                  omission: '...',
+                })}
+              </ReactMarkdown>
+              {details.properties.Description.length > 310 && (
+                <span
+                  onClick={() => setExpandText(true)}
+                  className="text-base leading-6 font-normal text-indigo-600 cursor-pointer"
+                >
+                  Read more
+                </span>
+              )}
+            </>
+          ) : (
+            <>
+              <ReactMarkdown className="inline-block">
+                {details.properties.Description}
+              </ReactMarkdown>
+              <span
+                onClick={() => setExpandText(false)}
+                className="text-base leading-6 font-normal text-indigo-600 cursor-pointer"
+              >
+                Show less
+              </span>
+            </>
+          )}
         </div>
         <UsageCard stats={stats} />
         <SummaryStats stats={stats} />

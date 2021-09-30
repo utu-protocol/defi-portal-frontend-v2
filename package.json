@@ -28,6 +28,7 @@
     "@walletconnect/web3-provider": "^1.6.5",
     "ethereum-address": "^0.0.4",
     "ethers": "^5.4.1",
+    "lodash.truncate": "^4.4.2",
     "next": "latest",
     "next-redux-wrapper": "^7.0.5",
     "react": "^17.0.2",

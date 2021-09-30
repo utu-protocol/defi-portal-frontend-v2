@@ -154,13 +154,6 @@ export default function Navigation({
                       </div>
                     </div>
                   )}
-                  {/* {address && (
-          <div className="grid">
-            <div>
-              <p className=" rounded-full px-2 py-1 bg-gray-900 text-white bg-opacity-50 text-opacity-90 w-24 hover:w-full truncate overflow-ellipsis overflow-hidden">{address}</p>
-            </div>
-          </div>
-        )} */}
 
                   {!address && !web3p && !web3Provider && (
                     <button
@@ -221,7 +214,7 @@ export default function Navigation({
                               </div>
                             )}
                           </Menu.Item>
-                          <Menu.Item>
+                          {/* <Menu.Item>
                             {({ active }) => (
                               <a
                                 href="#"
@@ -233,7 +226,7 @@ export default function Navigation({
                                 Settings
                               </a>
                             )}
-                          </Menu.Item>
+                          </Menu.Item> */}
                           <Menu.Item>
                             {({ active }) => (
                               <a
