@@ -8,7 +8,7 @@ export default function SummaryStats({ stats }: { stats: any }): JSX.Element {
       <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
         <StatCard
           title="Total consumption"
-          value={stats.consumption.valueOcean}
+          value={stats.consumption.totalConsumption}
           stat={stats.consumption.times}
           statText="times"
         />
@@ -27,9 +27,10 @@ export default function SummaryStats({ stats }: { stats: any }): JSX.Element {
         <StatCard
           title="Monthly activity"
           value={stats.activity.monthlyInteractions}
-          stat={stats.activity.changePercent}
+          stat={stats.activity.change}
           statText="%"
-          increased
+          increased={stats.activity.change > 0}
+          decreased={stats.activity.change < 0}
         />
       </div>
     </div>

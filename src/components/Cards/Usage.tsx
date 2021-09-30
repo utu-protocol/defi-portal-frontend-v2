@@ -116,16 +116,20 @@ export default function UsageCard({ stats }: { stats: any }): JSX.Element {
       <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
         Usage in your network
       </h3>
-      <CardDetails
-        details={stats.networkInteraction}
-        consumersText="In your network consumed this data asset"
-        liquidityText="In your network provided liquidity for this data asset"
-      />
-      <CardDetails
-        details={stats.publisherInteraction}
-        consumersText="In your network consumed data assets of this data asset's publisher"
-        liquidityText="In your network provided liquidity for  this data asset's publisher"
-      />
+      {stats.networkInteraction && (
+        <CardDetails
+          details={stats.networkInteraction}
+          consumersText="In your network consumed this data asset"
+          liquidityText="In your network provided liquidity for this data asset"
+        />
+      )}
+      {stats.publisherInteraction && (
+        <CardDetails
+          details={stats.publisherInteraction}
+          consumersText="In your network consumed data assets of this data asset's publisher"
+          liquidityText="In your network provided liquidity for  this data asset's publisher"
+        />
+      )}
     </div>
   )
 }

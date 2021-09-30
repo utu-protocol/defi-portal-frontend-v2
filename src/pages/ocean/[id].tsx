@@ -6,89 +6,6 @@ import Layout from '../../components/Layout'
 import AssetDetail from '../../components/AssetDetail'
 import { GetStaticPaths, GetStaticProps } from 'next'
 
-const stats = {
-  status: 'success',
-  result: {
-    target: {
-      name: 'Creative Haddock Token',
-      type: 'Asset',
-    },
-    data: {
-      consumption: {
-        times: 13,
-        valueOcean: 71697,
-      },
-      liquidity: {
-        pools: 4,
-        valueOcean: 278476,
-      },
-      swaps: {
-        pools: 3,
-        valueOcean: 710561,
-      },
-      activity: {
-        monthlyInteractions: 2,
-        changePercent: 12,
-      },
-      networkInteraction: {
-        consumers: {
-          total: 8,
-          sampleAddresses: [
-            {
-              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
-              lastTimestamp: '2d ago',
-            },
-            {
-              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
-              lastTimestamp: '1m ago',
-            },
-          ],
-        },
-        liquidityProviders: {
-          total: 3,
-          sampleAddresses: [
-            {
-              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
-              amount: '10k',
-            },
-            {
-              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
-              amount: '2k',
-            },
-          ],
-        },
-      },
-      publisherInteraction: {
-        consumers: {
-          total: 8,
-          sampleAddresses: [
-            {
-              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
-              lastTimestamp: '2d ago',
-            },
-            {
-              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
-              lastTimestamp: '1m ago',
-            },
-          ],
-        },
-        liquidityProviders: {
-          total: 3,
-          sampleAddresses: [
-            {
-              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
-              amount: '10k',
-            },
-            {
-              address: '0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79',
-              amount: '2k',
-            },
-          ],
-        },
-      },
-    },
-  },
-}
 export default function Ocean({ id }: { id: string }): ReactElement {
   const [details, setDetails] = useState(null)
 
@@ -104,15 +21,22 @@ export default function Ocean({ id }: { id: string }): ReactElement {
         type: 'User',
         ids: { address },
       }),
-      targetType: 'Asset',
+      targetCriteria: JSON.stringify({
+        type: 'Asset',
+        ids: {
+          address_datatoken: '0xC1e2dcCC25ed82AcF79e233780c0f613B1229F82',
+        },
+      }),
     }
     const res = await fetch(
-      `https://stage-api.ututrust.com/core-api/ranking?${new URLSearchParams(
+      `https://stage-api.ututrust.com/core-api/interactionSummary?${new URLSearchParams(
         Object.entries(data)
       ).toString()}`
     )
     const { result } = await res.json()
-    setDetails(result[0]?.entity)
+    //
+    console.log(result)
+    setDetails(result)
   }
   useEffect(() => {
     fetchData()
@@ -126,10 +50,13 @@ export default function Ocean({ id }: { id: string }): ReactElement {
               {details && (
                 <>
                   <div className="relative w-1/3 border-gray-200 border-r border-r-solid">
-                    <Item details={details} />
+                    <Item details={details?.target} />
                   </div>
                   <div className="relative w-2/3">
-                    <AssetDetail details={details} stats={stats.result.data} />
+                    <AssetDetail
+                      details={details?.target}
+                      stats={details?.data}
+                    />
                   </div>
                 </>
               )}

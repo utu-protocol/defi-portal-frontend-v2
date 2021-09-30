@@ -92,7 +92,9 @@ export default function Detail({ details, stats }: any): ReactElement {
             </>
           )}
         </div>
-        <UsageCard stats={stats} />
+        {stats.networkInteraction || stats.publisherInteraction ? (
+          <UsageCard stats={stats} />
+        ) : null}
         <SummaryStats stats={stats} />
       </div>
     </div>
