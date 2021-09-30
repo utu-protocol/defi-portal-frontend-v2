@@ -11,7 +11,7 @@ export default function StatCard({
 }: {
   title: string
   value: string
-  stat: string
+  stat: number
   statText: string
   increased?: boolean
   decreased?: boolean
@@ -24,7 +24,7 @@ export default function StatCard({
           {Intl.NumberFormat().format(Number(value))}
         </dd>
       </div>
-      {stat && (
+      {stat >= 0 && (
         <div className="flex flex-col justify-end">
           <span
             className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-normal ${
