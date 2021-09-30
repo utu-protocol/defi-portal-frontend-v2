@@ -6,14 +6,14 @@ import Layout from '../../components/Layout'
 import AssetDetail from '../../components/AssetDetail'
 import { GetStaticPaths, GetStaticProps } from 'next'
 
-export default function Ocean({ id }: { id: string }): ReactElement {
+export default function Ocean({ token }: { token: string }): ReactElement {
   const [details, setDetails] = useState(null)
 
   const { address } = useSelector((state: any) => ({
     address: state.address,
   }))
 
-  console.log(id)
+  // console.log(token)
 
   const fetchData = async () => {
     const data = {
@@ -24,7 +24,7 @@ export default function Ocean({ id }: { id: string }): ReactElement {
       targetCriteria: JSON.stringify({
         type: 'Asset',
         ids: {
-          address_datatoken: '0xC1e2dcCC25ed82AcF79e233780c0f613B1229F82',
+          address_datatoken: token,
         },
       }),
     }
@@ -69,11 +69,11 @@ export default function Ocean({ id }: { id: string }): ReactElement {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const id = params.id
+  const token = params.token
 
   return {
     props: {
-      id,
+      token,
     },
   }
 }
