@@ -18,7 +18,9 @@ export const Home = (): ReactElement => {
       targetType: 'DefiPortal',
     }
     const res = await fetch(
-      `https://stage-api.ututrust.com/core-api/ranking?${new URLSearchParams(
+      `${
+        process.env.NEXT_PUBLIC_UTU_API_BASE_URL
+      }/core-api/ranking?${new URLSearchParams(
         Object.entries(data)
       ).toString()}`
     )

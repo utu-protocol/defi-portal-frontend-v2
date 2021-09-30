@@ -19,9 +19,9 @@ export const Home = (): ReactElement => {
       targetType: 'Asset',
     }
     const res = await fetch(
-      `https://stage-api.ututrust.com/core-api/ranking?${new URLSearchParams(
-        Object.entries(data)
-      ).toString()}`
+      `${
+        process.env.NEXT_PUBLIC_UTU_API_BASE_URL
+      }/ranking?${new URLSearchParams(Object.entries(data)).toString()}`
     )
     const { result } = await res.json()
     setList(result)

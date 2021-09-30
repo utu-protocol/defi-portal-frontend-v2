@@ -29,13 +29,13 @@ export default function Ocean({ id }: { id: string }): ReactElement {
       }),
     }
     const res = await fetch(
-      `https://stage-api.ututrust.com/core-api/interactionSummary?${new URLSearchParams(
+      `${
+        process.env.NEXT_PUBLIC_UTU_API_BASE_URL
+      }/interactionSummary?${new URLSearchParams(
         Object.entries(data)
       ).toString()}`
     )
     const { result } = await res.json()
-    //
-    console.log(result)
     setDetails(result)
   }
   useEffect(() => {

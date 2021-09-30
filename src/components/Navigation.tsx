@@ -128,26 +128,11 @@ export default function Navigation({
                   </div>
                 </div>
 
-                {/* <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                  <div className="flex-shrink-0 flex items-center">
-                    <img
-                      className="block lg:hidden h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                      alt="Workflow"
-                    />
-                    <img
-                      className="hidden lg:block h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
-                      alt="Workflow"
-                    />
-                  </div>
-                </div> */}
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   {/* Profile dropdown */}
                   {address && (
                     <div className="grid">
                       <div>
-                        {/* <p className="mb-1">Address:</p> */}
                         <p className=" rounded-full hidden md:block px-2 py-1 bg-gray-900 text-white text-xs bg-opacity-50 text-opacity-90 mx-2">
                           {ellipseAddress(address)}
                         </p>
@@ -158,7 +143,6 @@ export default function Navigation({
                   {!address && !web3p && !web3Provider && (
                     <button
                       className="w-full border-white border-2 space-x-3 flex-row flex justify-between  rounded-md shadow pr-3 py-2 bg-transparent text-white font-mediumnhover:bg-white hover:bg-white hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
-                      //  className="rounded-full bg-green-400 px-3 py-2 text-white hover:bg-green-500"
                       type="button"
                       onClick={() => setIsConnectOpen(true)}
                     >
