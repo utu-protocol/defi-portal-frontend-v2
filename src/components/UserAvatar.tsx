@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-
+// @ts-ignore
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
 export type UserAvatarProps = {

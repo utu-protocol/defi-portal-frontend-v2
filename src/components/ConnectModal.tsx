@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { Dialog, Transition } from '@headlessui/react'
 import React, { Fragment, useRef, ReactElement, useState } from 'react'
 import { XIcon, LoginIcon, UserAddIcon } from '@heroicons/react/outline'
@@ -148,7 +147,7 @@ export default function ConnectModal({
                     </p>
                     <div className="flex flex-row space-x-5">
                       <div className="whitespace-nowrap flex flex-row align-center justify-center font-medium space-x-2">
-                        <Image
+                        <img
                           width="24px"
                           height="24px"
                           src="/wallets/metamask.svg"
@@ -157,7 +156,7 @@ export default function ConnectModal({
                         <p className="">Metamask</p>
                       </div>
                       <div className="whitespace-nowrap flex flex-row align-center justify-center font-medium space-x-2">
-                        <Image
+                        <img
                           width="24px"
                           height="24px"
                           src="/wallets/walletconnect.svg"

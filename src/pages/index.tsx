@@ -27,6 +27,7 @@ export const Home = (): ReactElement => {
     setEthAddress(e.target.value)
   }
 
+
   return (
     <Layout
     // title="Tailored DeFi recommendations"

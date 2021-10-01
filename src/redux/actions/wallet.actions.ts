@@ -2,6 +2,7 @@
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import Web3Modal from 'web3modal'
 import { providers } from 'ethers'
+// @ts-ignore
 import EthereumAddress from 'ethereum-address'
 
 const INFURA_ID = '460f40a260564ac4a4f4b3fffb032dad'
@@ -15,7 +16,7 @@ const providerOptions = {
   },
 }
 
-let web3Modal
+let web3Modal: any;
 if (typeof window !== 'undefined') {
   web3Modal = new Web3Modal({
     network: 'mainnet', // optional
@@ -43,16 +44,16 @@ export const connect = () => async (dispatch: any) => {
   dispatch({
     type: 'SET_WEB3_PROVIDER',
     payload: {
-      provider,
-      web3Provider,
+      provider: {},
+      web3Provider: {},
       address,
       chainId: network.chainId,
     },
   })
 }
 
-export const disconnect = () => async (dispatch, getState) => {
-  const { provider } = getState()
+export const disconnect = () => async (dispatch: any, getState: any) => {
+  const provider = await web3Modal.cachedProvider;
   await web3Modal.clearCachedProvider()
   if (provider?.disconnect && typeof provider.disconnect === 'function') {
     await provider.disconnect()
@@ -64,7 +65,7 @@ export const disconnect = () => async (dispatch, getState) => {
 
 export const storeAddress =
   ({ address }: { address: string }) =>
-  async (dispatch) => {
+  async (dispatch: any) => {
     if (!EthereumAddress.isAddress(address)) {
       return false
     }
