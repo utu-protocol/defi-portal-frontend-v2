@@ -4,10 +4,14 @@ import { useSelector } from 'react-redux'
 import Item from '../../components/AssetOverview'
 import Layout from '../../components/Layout'
 import AssetDetail from '../../components/AssetDetail'
-import { GetStaticPaths, GetStaticProps } from 'next'
+import {
+  useParams
+} from "react-router-dom";
+// import { GetStaticPaths, GetStaticProps } from 'next'
 
-export default function Ocean({ token }: { token: string }): ReactElement {
-  const [details, setDetails] = useState(null)
+export default function Ocean(): ReactElement {
+  const [details, setDetails] = useState<any>(null)
+  const { token } = useParams<any>();
 
   const { address } = useSelector((state: any) => ({
     address: state.address,
@@ -29,8 +33,7 @@ export default function Ocean({ token }: { token: string }): ReactElement {
       }),
     }
     const res = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_UTU_API_BASE_URL
+      `${process.env.REACT_APP_UTU_API_BASE_URL
       }/interactionSummary?${new URLSearchParams(
         Object.entries(data)
       ).toString()}`
@@ -40,7 +43,8 @@ export default function Ocean({ token }: { token: string }): ReactElement {
   }
   useEffect(() => {
     fetchData()
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token])
   return (
     <Layout title="Ocean Market">
       <div className="flex flex-col max-w-7xl  px-8 py-8  mx-auto ">
@@ -66,24 +70,4 @@ export default function Ocean({ token }: { token: string }): ReactElement {
       </div>
     </Layout>
   )
-}
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const token = params.token
-
-  return {
-    props: {
-      token,
-    },
-  }
-}
-
-export const getStaticPaths: GetStaticPaths = () => {
-  // We'll pre-render only these paths at build time.
-  // { fallback: blocking } will server-render pages
-  // on-demand if the path doesn't exist.
-  return {
-    paths: [],
-    fallback: true,
-  }
 }

@@ -1,10 +1,8 @@
-import { HYDRATE } from 'next-redux-wrapper'
-
-type StateType = {
+export type StateType = {
   provider?: any
   web3Provider?: any
-  address?: string
-  chainId?: number
+  address?: string | null
+  chainId?: number | null
 }
 
 const initialState: StateType = {
@@ -14,7 +12,7 @@ const initialState: StateType = {
   chainId: null,
 }
 
-type ActionType =
+export type ActionType =
   | {
       type: 'SET_WEB3_PROVIDER'
       payload: {
@@ -51,9 +49,6 @@ const reducer = (
 ): StateType => {
   const { type, payload } = action
   switch (type) {
-    case HYDRATE:
-      // Attention! This will overwrite client state! Real apps should use proper reconciliation.
-      return { ...state, ...payload }
     case 'SET_WEB3_PROVIDER':
       return {
         ...state,

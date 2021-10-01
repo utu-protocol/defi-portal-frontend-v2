@@ -32,7 +32,7 @@ export function CardDetails({
   consumersText: string
   liquidityText: string
 }): JSX.Element {
-  const sliceAddress = (address) => {
+  const sliceAddress = (address: string) => {
     const characters = address.split('')
     const slices = []
     slices.push(characters.slice(0, 4))
@@ -69,7 +69,7 @@ export function CardDetails({
       <div className="mb-12">
         <div className="flex flex-row px-5">
           <div className="flex flex-col w-1/2">
-            {details.consumers.sampleAddresses.slice(0, 2).map((sample, i) => (
+            {details.consumers.sampleAddresses.slice(0, 2).map((sample: any, i: number) => (
               <div
                 key={`consumer-list-item${i}`}
                 className="flex items-center py-2 border-solid border-b border-gray-200 text-sm leading-5 font-normal text-gray-500 pr-5"
@@ -85,7 +85,7 @@ export function CardDetails({
           <div className="flex flex-col w-1/2">
             {details.liquidityProviders.sampleAddresses
               .slice(0, 2)
-              .map((sample, i) => (
+              .map((sample: any, i: number) => (
                 <div
                   key={`liquidity-list-item${i}`}
                   className="flex items-center py-2 border-solid border-b border-gray-200 text-sm leading-5 font-normal text-gray-500 pl-5"

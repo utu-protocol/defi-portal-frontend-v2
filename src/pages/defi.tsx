@@ -19,7 +19,7 @@ export const Home = (): ReactElement => {
     }
     const res = await fetch(
       `${
-        process.env.NEXT_PUBLIC_UTU_API_BASE_URL
+        process.env.REACT_APP_UTU_API_BASE_URL
       }/core-api/ranking?${new URLSearchParams(
         Object.entries(data)
       ).toString()}`
@@ -30,6 +30,7 @@ export const Home = (): ReactElement => {
 
   useEffect(() => {
     fetchData()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
     <Layout title="Ocean Market">

@@ -1,17 +1,17 @@
-/* eslint-disable @next/next/no-img-element */
 import { Fragment, ReactElement } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { DotsVerticalIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 import { ellipseAddress } from '../lib/utilities'
 import { useState } from 'react'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
+import {
+  Link,
+  useLocation,
+} from "react-router-dom";
 import {
   LoginIcon,
   LogoutIcon,
   StatusOnlineIcon,
 } from '@heroicons/react/outline'
-// import Link from "next/link"
 import ConnectModal from '../components/ConnectModal'
 import UserAvatar from './UserAvatar'
 const navigation = [
@@ -19,7 +19,7 @@ const navigation = [
   { name: 'Ocean', href: '/ocean' },
 ]
 
-function classNames(...classes) {
+function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(' ')
 }
 export type NavigationProps = {
@@ -37,11 +37,11 @@ export default function Navigation({
   chainData,
 }: NavigationProps): ReactElement {
   const [isConnectOpen, setIsConnectOpen] = useState(false)
-  let web3p
+  let web3p: any;
   if (typeof window !== 'undefined') {
     web3p = localStorage?.getItem('WEB3_CONNECT_CACHED_PROVIDER')
   }
-  const router = useRouter()
+  const router = useLocation()
   return (
     <>
       <Disclosure
@@ -64,64 +64,59 @@ export default function Navigation({
                   </Disclosure.Button>
                 </div>
                 <div className="flex">
-                  <Link href="/">
-                    <a className="flex">
-                      <div className="flex-shrink-0">
-                        <svg
-                          className="w-8 h-8 mr-2 ml-12 sm:ml-0"
-                          width="64"
-                          height="64"
-                          viewBox="0 0 64 64"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M0.403013 37.3991L26.6009 63.597C13.2225 61.3356 2.66442 50.7775 0.403013 37.3991Z"
-                            fill="#fff"
-                          ></path>
-                          <path
-                            d="M0 30.2868L33.7132 64C35.7182 63.8929 37.6742 63.6013 39.5645 63.142L0.85799 24.4355C0.398679 26.3259 0.10713 28.2818 0 30.2868Z"
-                            fill="#fff"
-                          ></path>
-                          <path
-                            d="M2.53593 19.4042L44.5958 61.4641C46.1277 60.8066 47.598 60.0331 48.9956 59.1546L4.84543 15.0044C3.96691 16.402 3.19339 17.8723 2.53593 19.4042Z"
-                            fill="#fff"
-                          ></path>
-                          <path
-                            d="M7.69501 11.1447C13.5677 4.32093 22.2677 0 31.9769 0C49.6628 0 64 14.3372 64 32.0231C64 41.7323 59.6791 50.4323 52.8553 56.305L7.69501 11.1447Z"
-                            fill="#fff"
-                          ></path>
-                        </svg>
-                      </div>
-                      <div className="flex-shrink-0 hidden md:block">
-                        <h1 className="text-xl font-bold text-white leading-none">
-                          DeFi Recommendation Portal
-                        </h1>
-                        <h2 className="text-xs font-medium text-white text-opacity-70 leading-none">
-                          DeFi recommendations from your social circle
-                          {/* Powered by UTU Trust Engine */}
-                        </h2>
-                      </div>
-                    </a>
+                  <Link to="/" className="flex">
+                    <div className="flex-shrink-0">
+                      <svg
+                        className="w-8 h-8 mr-2 ml-12 sm:ml-0"
+                        width="64"
+                        height="64"
+                        viewBox="0 0 64 64"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M0.403013 37.3991L26.6009 63.597C13.2225 61.3356 2.66442 50.7775 0.403013 37.3991Z"
+                          fill="#fff"
+                        ></path>
+                        <path
+                          d="M0 30.2868L33.7132 64C35.7182 63.8929 37.6742 63.6013 39.5645 63.142L0.85799 24.4355C0.398679 26.3259 0.10713 28.2818 0 30.2868Z"
+                          fill="#fff"
+                        ></path>
+                        <path
+                          d="M2.53593 19.4042L44.5958 61.4641C46.1277 60.8066 47.598 60.0331 48.9956 59.1546L4.84543 15.0044C3.96691 16.402 3.19339 17.8723 2.53593 19.4042Z"
+                          fill="#fff"
+                        ></path>
+                        <path
+                          d="M7.69501 11.1447C13.5677 4.32093 22.2677 0 31.9769 0C49.6628 0 64 14.3372 64 32.0231C64 41.7323 59.6791 50.4323 52.8553 56.305L7.69501 11.1447Z"
+                          fill="#fff"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div className="flex-shrink-0 hidden md:block">
+                      <h1 className="text-xl font-bold text-white leading-none">
+                        DeFi Recommendation Portal
+                      </h1>
+                      <h2 className="text-xs font-medium text-white text-opacity-70 leading-none">
+                        DeFi recommendations from your social circle
+                        {/* Powered by UTU Trust Engine */}
+                      </h2>
+                    </div>
                   </Link>
 
                   <div className="hidden sm:block sm:ml-6">
                     <div className="flex space-x-4">
                       {navigation.map((item) => (
-                        <Link key={item.name} href={item.href}>
-                          <a
-                            className={classNames(
-                              item.href === router.pathname
-                                ? 'bg-gray-900 text-white'
-                                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                              'px-3 py-2 rounded-md text-sm font-medium'
-                            )}
-                            aria-current={
-                              item.href === router.pathname ? 'page' : undefined
-                            }
-                          >
-                            {item.name}
-                          </a>
+                        <Link key={item.name} to={item.href} className={classNames(
+                          item.href === router.pathname
+                            ? 'bg-gray-900 text-white'
+                            : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          'px-3 py-2 rounded-md text-sm font-medium'
+                        )}
+                          aria-current={
+                            item.href === router.pathname ? 'page' : undefined
+                          }
+                        >
+                          {item.name}
                         </Link>
                       ))}
                     </div>
@@ -200,7 +195,7 @@ export default function Navigation({
                           </Menu.Item>
                           {/* <Menu.Item>
                             {({ active }) => (
-                              <a
+                              <span
                                 href="#"
                                 className={classNames(
                                   active ? 'bg-gray-100' : '',
@@ -208,12 +203,12 @@ export default function Navigation({
                                 )}
                               >
                                 Settings
-                              </a>
+                              </span>
                             )}
                           </Menu.Item> */}
                           <Menu.Item>
                             {({ active }) => (
-                              <a
+                              <span
                                 onClick={disconnect}
                                 className={classNames(
                                   active ? 'bg-red-100 text-red-500 ' : '',
@@ -225,7 +220,7 @@ export default function Navigation({
                                   className="h-5 w-5"
                                   aria-hidden="true"
                                 />
-                              </a>
+                              </span>
                             )}
                           </Menu.Item>
                         </Menu.Items>
@@ -239,9 +234,7 @@ export default function Navigation({
             <Disclosure.Panel className="sm:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1">
                 {navigation.map((item) => (
-                  <Link key={item.name} href={item.href}>
-                    <a
-                      className={classNames(
+                  <Link key={item.name} to={item.href}  className={classNames(
                         item.href === router.pathname
                           ? 'bg-gray-900 text-white'
                           : 'text-gray-300 hover:bg-gray-700 hover:text-white',
@@ -252,7 +245,6 @@ export default function Navigation({
                       }
                     >
                       {item.name}
-                    </a>
                   </Link>
                 ))}
               </div>

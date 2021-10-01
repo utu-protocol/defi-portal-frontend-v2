@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @next/next/no-page-custom-font */
 import { ReactElement, useCallback, useEffect } from 'react'
-import Head from 'next/head'
+import { Helmet as Head } from "react-helmet";
 import { useSelector, useDispatch } from 'react-redux'
 import { getChainData } from '../../lib/utilities'
 import Navigation from '../Navigation'
@@ -89,8 +88,8 @@ export default function Layout({
   return (
     <div className="bg-primary h-80">
       <Head>
-        <title>Ocean Market by UTU</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>DeFi Recommendation Portal</title>
+        <link rel="icon" href="/favicon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"

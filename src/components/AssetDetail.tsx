@@ -1,5 +1,8 @@
 import React, { ReactElement } from 'react'
 import { XIcon } from '@heroicons/react/outline'
+import {
+  Link
+} from "react-router-dom";
 import SummaryStats from './SummaryStats'
 import UsageCard from './Cards/Usage'
 import ReactMarkdown from 'react-markdown'
@@ -11,7 +14,7 @@ export function CloseButton(): ReactElement {
     <button
       type="button"
       className="bg-gray-100 w-8 h-8 text-center outline-none focus:outline-none flex items-center justify-center rounded-full text-gray-400 hover:text-gray-500"
-      // onClick={() => setOpen(false)}
+    // onClick={() => setOpen(false)}
     >
       <span className="sr-only">Close</span>
       <XIcon className="h-6 w-6" aria-hidden="true" />
@@ -32,7 +35,9 @@ export default function Detail({ details, stats }: any): ReactElement {
             <div className="py-3">
               <span className="block">DATA ASSET DETAIL</span>
             </div>
-            <CloseButton />
+            <Link to="/ocean">
+              <CloseButton />
+            </Link>
           </div>
           <h2 className="pt-12 text-3xl font-bold">{details.name}</h2>
           <div className="ml-0 pr-4 py-5 flex flex-row justify-between text-gray-500">
@@ -49,11 +54,10 @@ export default function Detail({ details, stats }: any): ReactElement {
           <div className="relative">Updated 3 months ago</div>
           <div>
             <span
-              className={`px-3 py-0.5 inline-flex text-sm leading-5 font-medium rounded-full ${
-                !details.properties.Purgatory
+              className={`px-3 py-0.5 inline-flex text-sm leading-5 font-medium rounded-full ${!details.properties.Purgatory
                   ? 'bg-green-100 text-green-800'
                   : 'bg-red-100 text-red-800'
-              }`}
+                }`}
             >
               {!details.properties.Purgatory ? 'Active' : 'Purgatory'}
             </span>

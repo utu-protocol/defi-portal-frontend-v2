@@ -1,13 +1,31 @@
-import { createStore, applyMiddleware } from 'redux'
+import { configureStore, Store } from '@reduxjs/toolkit';
+import storage from 'redux-persist/lib/storage'
+import rootReducer from './rootReducer';
+import { persistReducer, persistStore } from 'redux-persist';
 import thunk from 'redux-thunk'
 
-import { createWrapper } from 'next-redux-wrapper'
-import reducer from './rootReducer'
 
-// create a makeStore function
-const makeStore = (): any => createStore(reducer, applyMiddleware(thunk))
+const persistConfig = {
+    key: 'utu-defi-dashboard',
+    storage,
+};
 
-// export an assembled wrapper
-export const wrapper = createWrapper(makeStore)
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export default makeStore
+const store = configureStore({
+    reducer: persistedReducer,
+    devTools: process.env.NODE_ENV !== 'production',
+    middleware: [thunk]
+});
+
+export const persistor = persistStore(store as Store<any, any>);
+// if (process.env.NODE_ENV === 'development' && module.hot) {
+//   module.hot.accept('./rootReducer', () => {
+//     const newRootReducer = require('./rootReducer').default;
+//     store.replaceReducer(newRootReducer);
+//   });
+// }
+
+export type AppDispatch = typeof store.dispatch;
+
+export default store;
