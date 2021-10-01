@@ -27,6 +27,7 @@ export default function SummaryStats({ stats }: { stats: any }): JSX.Element {
         <StatCard
           title="Monthly activity"
           value={stats.activity.monthlyInteractions}
+          valueText="consumptions"
           stat={stats.activity.change}
           statText=""
           increased={stats.activity.change > 0}

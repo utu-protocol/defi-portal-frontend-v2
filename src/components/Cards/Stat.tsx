@@ -4,6 +4,7 @@ import { ArrowUpIcon, ArrowDownIcon } from '@heroicons/react/outline'
 export default function StatCard({
   title,
   value,
+  valueText,
   stat,
   statText,
   increased,
@@ -11,6 +12,7 @@ export default function StatCard({
 }: {
   title: string
   value: string
+  valueText?: string
   stat: number
   statText: string
   increased?: boolean
@@ -24,7 +26,7 @@ export default function StatCard({
           <span className="text-3xl font-semibold text-gray-900">
             {Intl.NumberFormat().format(Number(value))}
           </span>
-          <span className="font-medium uppercase text-xs ml-0.5">Ocean</span>
+          <span className="font-medium uppercase text-xs ml-0.5">{valueText || 'Ocean'}</span>
         </div>
       </div>
       {stat >= 0 && (
