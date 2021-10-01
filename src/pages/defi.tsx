@@ -1,40 +1,39 @@
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useEffect } from 'react'
 
-import Table from '../components/Table'
+// import Table from '../components/Table'
 import Layout from '../components/Layout'
-import { useSelector } from 'react-redux'
+import { CancelTokenSource } from 'axios';
+import { useProtocols } from '../hooks';
+// 0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79
+
+const intervalSeconds = 60;
+let interval: any;
 
 export const Home = (): ReactElement => {
-  const [list, setList] = useState([])
-  const { address } = useSelector((state: any) => ({
-    address: state.wallet.address,
-  }))
-  const fetchData = async () => {
-    const data = {
-      sourceCriteria: JSON.stringify({
-        type: 'Address',
-        ids: { address },
-      }),
-      targetType: 'DefiPortal',
-    }
-    const res = await fetch(
-      `${
-        process.env.REACT_APP_UTU_API_BASE_URL
-      }/core-api/ranking?${new URLSearchParams(
-        Object.entries(data)
-      ).toString()}`
-    )
-    const { result } = await res.json()
-    setList(result)
-  }
+  const { protocols, getProtocols, triggerSubscriptionAndGetProtocols } = useProtocols();
 
   useEffect(() => {
-    fetchData()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+
+    const triggerCancelTokenSource = triggerSubscriptionAndGetProtocols();
+    let getProtocolsCancelTokenSource: CancelTokenSource;
+
+    interval = setInterval(function () {
+      getProtocolsCancelTokenSource = getProtocols()
+    }, intervalSeconds * 1000);
+
+    return () => {
+      clearInterval(interval);
+
+      triggerCancelTokenSource.cancel();
+      getProtocolsCancelTokenSource && getProtocolsCancelTokenSource.cancel();
+    }
+  }, [triggerSubscriptionAndGetProtocols, getProtocols]);
+  
+  console.log(protocols);
+
   return (
     <Layout title="DeFi">
-      <Table list={list} />
+      {/* <Table list={list} /> */}
     </Layout>
   )
 }
