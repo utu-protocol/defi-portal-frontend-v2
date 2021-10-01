@@ -28,7 +28,7 @@ export default function SummaryStats({ stats }: { stats: any }): JSX.Element {
           title="Monthly activity"
           value={stats.activity.monthlyInteractions}
           stat={stats.activity.change}
-          statText="%"
+          statText=""
           increased={stats.activity.change > 0}
           decreased={stats.activity.change < 0}
         />
