@@ -100,9 +100,9 @@ export function CardDetails({
           </div>
         </div>
         <div className="text-center pt-4">
-          <button className="shadow-sm border border-solid border-gray-300 bg-white text-xs leading-4 font-medium text-gray-700 py-2 px-3 rounded">
+          {/* <button className="shadow-sm border border-solid border-gray-300 bg-white text-xs leading-4 font-medium text-gray-700 py-2 px-3 rounded">
             See all
-          </button>
+          </button> */}
         </div>
       </div>
       {/* <ul className="divide-y divide-gray-300"></ul> */}
