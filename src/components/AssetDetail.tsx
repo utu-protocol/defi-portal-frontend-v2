@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React, { ReactElement } from 'react'
 import { XIcon } from '@heroicons/react/outline'
 import {
@@ -40,6 +41,7 @@ export default function Detail({ details, stats }: any): ReactElement {
             </Link>
           </div>
           <h2 className="pt-12 text-3xl font-bold">{details.name}</h2>
+          <a href={`https://market.oceanprotocol.com/asset/${details.properties.DID}`} target="_blank" className="mt-5 block text-indigo-600 cursor-pointer">View on Ocean Market</a>
           <div className="ml-0 pr-4 py-5 flex flex-row justify-between text-gray-500">
             <p>
               By{' '}
@@ -55,8 +57,8 @@ export default function Detail({ details, stats }: any): ReactElement {
           <div>
             <span
               className={`px-3 py-0.5 inline-flex text-sm leading-5 font-medium rounded-full ${!details.properties.Purgatory
-                  ? 'bg-green-100 text-green-800'
-                  : 'bg-red-100 text-red-800'
+                ? 'bg-green-100 text-green-800'
+                : 'bg-red-100 text-red-800'
                 }`}
             >
               {!details.properties.Purgatory ? 'Active' : 'Purgatory'}
