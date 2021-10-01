@@ -26,6 +26,7 @@
     "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.4",
     "@walletconnect/web3-provider": "^1.6.5",
+    "axios": "^0.22.0",
     "ethereum-address": "^0.0.4",
     "ethers": "^5.4.1",
     "lodash.truncate": "^4.4.2",

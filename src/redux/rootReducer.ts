@@ -7,7 +7,7 @@ type StateType = {
   chainId?: number
 }
 
-const initialState: StateType = {
+export const initialState: StateType = {
   provider: null,
   web3Provider: null,
   address: null,
