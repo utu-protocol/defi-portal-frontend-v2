@@ -3,11 +3,11 @@ import { ReactElement, useEffect, useState } from 'react'
 import Table from '../components/Table'
 import Layout from '../components/Layout'
 import { useSelector } from 'react-redux'
-// 0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79
+
 export const Home = (): ReactElement => {
   const [list, setList] = useState([])
   const { address } = useSelector((state: any) => ({
-    address: state.address,
+    address: state.wallet.address,
   }))
   const fetchData = async () => {
     const data = {

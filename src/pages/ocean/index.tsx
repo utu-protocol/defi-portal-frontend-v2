@@ -1,38 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useEffect } from 'react'
 
 import Table from '../../components/Table'
 import Layout from '../../components/Layout'
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { fetchAssets } from '../../redux/actions/ocean.actions'
 
 export const Home = (): ReactElement => {
-  const [list, setList] = useState([])
-  const { address } = useSelector((state: any) => ({
-    address: state.address,
-  }))
-  const fetchData = async () => {
-    const data = {
-      sourceCriteria: JSON.stringify({
-        type: 'User',
-        ids: { address },
-      }),
-      targetType: 'Asset',
-    }
-    const res = await fetch(
-      `${
-        process.env.REACT_APP_UTU_API_BASE_URL
-      }/ranking?${new URLSearchParams(Object.entries(data)).toString()}`
-    )
-    const { result } = await res.json()
-    setList(result)
-  }
+  const dispatch = useDispatch();
+  const { assets } = useSelector((state: any) => ({
+    assets: state.ocean.assets,
+  }));
 
   useEffect(() => {
-    fetchData()
-  }, [address])
+    dispatch(fetchAssets());
+  }, [])
   return (
     <Layout title="Ocean Market">
-      <Table list={list} />
+      <Table list={assets} />
     </Layout>
   )
 }

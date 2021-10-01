@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Layout from '../components/Layout'
 
@@ -7,7 +7,7 @@ import { connect, storeAddress } from '../redux/actions/wallet.actions'
 
 export const Home = (): ReactElement => {
   const dispatch = useDispatch()
-  const { address } = useSelector((state: any) => state)
+  const { address } = useSelector((state: any) => state.wallet)
   const [ethAddress, setEthAddress] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
 

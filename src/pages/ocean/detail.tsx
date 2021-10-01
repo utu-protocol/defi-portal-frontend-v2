@@ -1,49 +1,26 @@
 /* eslint-disable no-console */
 import { ReactElement, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import Item from '../../components/AssetOverview'
 import Layout from '../../components/Layout'
 import AssetDetail from '../../components/AssetDetail'
+import { useDispatch } from 'react-redux'
 import {
   useParams
 } from "react-router-dom";
-// import { GetStaticPaths, GetStaticProps } from 'next'
+import { getAssetDetails } from '../../redux/actions/ocean.actions'
 
 export default function Ocean(): ReactElement {
   const [details, setDetails] = useState<any>(null)
   const { token } = useParams<any>();
-
-  const { address } = useSelector((state: any) => ({
-    address: state.address,
-  }))
-
-  // console.log(token)
+  const dispatch = useDispatch()
 
   const fetchData = async () => {
-    const data = {
-      sourceCriteria: JSON.stringify({
-        type: 'User',
-        ids: { address },
-      }),
-      targetCriteria: JSON.stringify({
-        type: 'Asset',
-        ids: {
-          address_datatoken: token,
-        },
-      }),
-    }
-    const res = await fetch(
-      `${process.env.REACT_APP_UTU_API_BASE_URL
-      }/interactionSummary?${new URLSearchParams(
-        Object.entries(data)
-      ).toString()}`
-    )
-    const { result } = await res.json()
-    setDetails(result)
+    const result = await dispatch(getAssetDetails({ token }))
+    setDetails(result);
   }
   useEffect(() => {
     fetchData()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token])
   return (
     <Layout title="Ocean Market">

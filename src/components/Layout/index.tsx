@@ -19,7 +19,7 @@ export default function Layout({
   children: ReactElement | ReactElement[]
 }): ReactElement {
   const { provider, web3Provider, address, chainId } = useSelector(
-    (state: any) => state
+    (state: any) => state.wallet
   )
   const web3Modal = getWeb3Modal()
   const dispatch = useDispatch()

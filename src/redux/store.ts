@@ -1,31 +1,31 @@
-import { configureStore, Store } from '@reduxjs/toolkit';
+import { configureStore, Store } from '@reduxjs/toolkit'
+import { combineReducers } from 'redux'
 import storage from 'redux-persist/lib/storage'
-import rootReducer from './rootReducer';
-import { persistReducer, persistStore } from 'redux-persist';
+import walletReducer from './reducers/wallet.reducers'
+import oceanReducer from './reducers/ocean.reducers';
+import { persistReducer, persistStore } from 'redux-persist'
 import thunk from 'redux-thunk'
 
-
+const reducers = combineReducers({
+  wallet: walletReducer,
+  ocean: oceanReducer,
+})
 const persistConfig = {
-    key: 'utu-defi-dashboard',
-    storage,
-};
+  key: 'utu-defi-dashboard',
+  storage,
+  whitelist: ['wallet'],
+}
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, reducers)
 
 const store = configureStore({
-    reducer: persistedReducer,
-    devTools: process.env.NODE_ENV !== 'production',
-    middleware: [thunk]
-});
+  reducer: persistedReducer,
+  devTools: process.env.NODE_ENV !== 'production',
+  middleware: [thunk],
+})
 
-export const persistor = persistStore(store as Store<any, any>);
-// if (process.env.NODE_ENV === 'development' && module.hot) {
-//   module.hot.accept('./rootReducer', () => {
-//     const newRootReducer = require('./rootReducer').default;
-//     store.replaceReducer(newRootReducer);
-//   });
-// }
+export const persistor = persistStore(store as Store<any, any>)
 
-export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch
 
-export default store;
+export default store
