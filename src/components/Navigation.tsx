@@ -15,8 +15,8 @@ import {
 import ConnectModal from '../components/ConnectModal'
 import UserAvatar from './UserAvatar'
 const navigation = [
-  { name: 'DeFi', href: '/defi' },
   { name: 'Ocean', href: '/ocean' },
+  { name: 'DeFi', href: '/defi' },
 ]
 
 function classNames(...classes: any[]) {

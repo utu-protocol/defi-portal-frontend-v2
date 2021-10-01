@@ -33,7 +33,7 @@ export const Home = (): ReactElement => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
-    <Layout title="Ocean Market">
+    <Layout title="DeFi">
       <Table list={list} />
     </Layout>
   )
