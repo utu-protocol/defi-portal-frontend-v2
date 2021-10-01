@@ -28,7 +28,7 @@ export const Home = (): ReactElement => {
       getProtocolsCancelTokenSource && getProtocolsCancelTokenSource.cancel();
     }
   }, [triggerSubscriptionAndGetProtocols, getProtocols]);
-  
+
   console.log(protocols);
 
   return (
