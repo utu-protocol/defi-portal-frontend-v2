@@ -11,6 +11,7 @@ export const setLoading = (value: boolean) => async (dispatch: any) => {
 export const getAssetDetails =
   ({ token }: { token: string }) =>
   async (dispatch: any, getState: any) => {
+    dispatch(setLoading(true));
     const address = getState().wallet.address
     const data = {
       sourceCriteria: JSON.stringify({
@@ -32,12 +33,13 @@ export const getAssetDetails =
       ).toString()}`
     )
     const { result } = await res.json()
+    dispatch(setLoading(false));
     return result
   }
 
 export const fetchAssets = () => async (dispatch: any, getState: any) => {
   const address = getState().wallet.address
-  await dispatch(setLoading(true));
+  dispatch(setLoading(true));
   const data = {
     sourceCriteria: JSON.stringify({
       type: 'User',
