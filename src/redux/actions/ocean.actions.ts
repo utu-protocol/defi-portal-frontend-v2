@@ -1,3 +1,13 @@
+export const setLoading = (value: boolean) => async (dispatch: any) => {
+  dispatch({
+    type: 'SET_OCEAN_LOADING',
+    payload: {
+      loading: value
+    },
+  })
+}
+
+
 export const getAssetDetails =
   ({ token }: { token: string }) =>
   async (dispatch: any, getState: any) => {
@@ -22,12 +32,12 @@ export const getAssetDetails =
       ).toString()}`
     )
     const { result } = await res.json()
-
     return result
   }
 
 export const fetchAssets = () => async (dispatch: any, getState: any) => {
   const address = getState().wallet.address
+  await dispatch(setLoading(true));
   const data = {
     sourceCriteria: JSON.stringify({
       type: 'User',
@@ -41,6 +51,9 @@ export const fetchAssets = () => async (dispatch: any, getState: any) => {
     ).toString()}`
   )
   const { result } = await res.json()
+
+  dispatch(setLoading(false))
+
   dispatch({
     type: 'SET_ASSETS',
     payload: {

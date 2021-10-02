@@ -4,3 +4,17 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@keyframes progress-animation {
+  from {
+    right: 100%;
+  }
+  to {
+    /* transform: translateX(100%); */
+    right: -25%;
+  }
+}
+
+.progress-bar-animation {
+  animation: progress-animation 2.5s linear infinite;
+}

@@ -1,41 +1,128 @@
+/* eslint-disable react/jsx-no-target-blank */
 import { ReactElement, useEffect } from 'react'
 
 // import Table from '../components/Table'
 import Layout from '../components/Layout'
-import { CancelTokenSource } from 'axios';
-import { useProtocols } from '../hooks';
+import { CancelTokenSource } from 'axios'
+import { useProtocols } from '../hooks'
+import Loader from '../components/Loader'
 // 0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79
 
-const intervalSeconds = 60;
-let interval: any;
+const intervalSeconds = 60
+let interval: any
 
-export const Home = (): ReactElement => {
-  const { protocols, getProtocols, triggerSubscriptionAndGetProtocols } = useProtocols();
+const DeFi = (): ReactElement => {
+  const { protocols, loading, getProtocols, triggerSubscriptionAndGetProtocols } =
+    useProtocols()
 
   useEffect(() => {
-
-    const triggerCancelTokenSource = triggerSubscriptionAndGetProtocols();
-    let getProtocolsCancelTokenSource: CancelTokenSource;
+    const triggerCancelTokenSource = triggerSubscriptionAndGetProtocols()
+    let getProtocolsCancelTokenSource: CancelTokenSource
 
     interval = setInterval(function () {
       getProtocolsCancelTokenSource = getProtocols()
-    }, intervalSeconds * 1000);
+    }, intervalSeconds * 1000)
 
     return () => {
-      clearInterval(interval);
+      clearInterval(interval)
 
-      triggerCancelTokenSource.cancel();
-      getProtocolsCancelTokenSource && getProtocolsCancelTokenSource.cancel();
+      triggerCancelTokenSource.cancel()
+      getProtocolsCancelTokenSource && getProtocolsCancelTokenSource.cancel()
     }
-  }, [triggerSubscriptionAndGetProtocols, getProtocols]);
-
-  console.log(protocols);
+  }, [triggerSubscriptionAndGetProtocols, getProtocols])
 
   return (
     <Layout title="DeFi">
       {/* <Table list={list} /> */}
+
+      <div className="flex flex-col max-w-7xl  px-8  mx-auto ">
+        {loading && (!protocols || !protocols.length) ? (
+          <div className="text-white mt-8">
+            <p>We are scanning the blockchain network</p>
+            <Loader />
+          </div>
+        ) : (
+          <div className="-my-2 overflow-x-auto py-8 sm:-mx-6 lg:-mx-8">
+            <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+              <div className="shadow overflow-hidden bg-white border-b border-gray-200 sm:rounded-lg flex flex-col divide-y divide-gray-200">
+                {protocols && protocols.length
+                  ? protocols.map((protocol: any) => {
+                    const relationshipsFound =
+                      protocol.summaryImages.length > 0
+                    return (
+                      <a
+                        key={`protocol-list-item${protocol.entity.name}`}
+                        href={protocol.entity.properties.url}
+                        target="_blank"
+                        className="block cursor-pointer"
+                      >
+                        <div className="flex py-3 justify-between hover:bg-gray-50">
+                          <div className="flex">
+                            <div className="flex-shrink-0 px-4">
+                              <img
+                                className={`h-12 w-12 rounded-full border-solid border-2 border-gray-200 ${relationshipsFound ? '' : ' text-gray-200'
+                                  }`}
+                                src={`/protocols/${protocol.entity.name.toLowerCase()}.png`}
+                                alt=""
+                              />
+                            </div>
+                            <div className="">
+                              <div
+                                className={`mt-1 text-xl leading-5 font-medium truncate ${relationshipsFound
+                                    ? 'text-yellow-900'
+                                    : 'text-gray-700'
+                                  }`}
+                              >
+                                {protocol.entity.name}{' '}
+                                <span
+                                  className={`text-xs ${relationshipsFound
+                                      ? 'text-yellow-600'
+                                      : 'text-gray-400'
+                                    }`}
+                                >
+                                  [{protocol.entity.properties.category}]
+                                </span>
+                              </div>
+                              <div
+                                className={`mt-1 flex items-center text-sm leading-5 ${relationshipsFound
+                                    ? 'text-yellow-700'
+                                    : 'text-gray-500'
+                                  }`}
+                              >
+                                <span className="truncate">
+                                  {protocol.entity.properties.description}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="pr-4 flex items-center text-gray-400">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-6 w-6"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                      </a>
+                    )
+                  })
+                  : null}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </Layout>
   )
 }
 
-export default Home
+export default DeFi

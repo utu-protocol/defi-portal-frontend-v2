@@ -1,30 +1,27 @@
 export type StateType = {
-  assets: []
+  protocols: []
   loading: Boolean
 }
 
 const initialState: StateType = {
-  assets: [],
+  protocols: [],
   loading: false,
 }
 
-export type ActionType =
-  | {
-      type: 'SET_ASSETS'
-      payload: {
-        assets?: StateType['assets']
-      }
-    }
-  | {
-      type: 'SET_OCEAN_LOADING'
-      payload: {
-        loading?: StateType['loading']
-      }
-    }
-  | {
-      type: any
-      payload: any
-    }
+export type ActionType = {
+  type: 'SET_PROTOCOLS'
+  payload: {
+    protocols?: StateType['protocols']
+  }
+} | {
+  type: 'SET_DEFI_LOADING'
+  payload: {
+    loading?: StateType['loading']
+  } 
+} | {
+  type: any
+  payload: any
+}
 
 const reducer = (
   state: StateType = initialState,
@@ -32,12 +29,12 @@ const reducer = (
 ): StateType => {
   const { type, payload } = action
   switch (type) {
-    case 'SET_ASSETS':
+    case 'SET_PROTOCOLS':
       return {
         ...state,
-        assets: payload.assets || [],
+        protocols: payload?.protocols || [],
       }
-    case 'SET_OCEAN_LOADING':
+    case 'SET_DEFI_LOADING':
       return {
         ...state,
         loading: payload?.loading || false,

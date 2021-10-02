@@ -3,12 +3,14 @@ import { combineReducers } from 'redux'
 import storage from 'redux-persist/lib/storage'
 import walletReducer from './reducers/wallet.reducers'
 import oceanReducer from './reducers/ocean.reducers';
+import defiReducer from './reducers/defi.reduces'
 import { persistReducer, persistStore } from 'redux-persist'
 import thunk from 'redux-thunk'
 
 const reducers = combineReducers({
   wallet: walletReducer,
   ocean: oceanReducer,
+  defi: defiReducer,
 })
 const persistConfig = {
   key: 'utu-defi-dashboard',

@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import { getAssetDetails } from '../../redux/actions/ocean.actions'
 
-export default function Ocean(): ReactElement {
+export default function OceanDetail(): ReactElement {
   const [details, setDetails] = useState<any>(null)
   const { token } = useParams<any>();
   const dispatch = useDispatch()
