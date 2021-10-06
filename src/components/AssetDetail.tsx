@@ -7,8 +7,9 @@ import {
 import SummaryStats from './SummaryStats'
 import UsageCard from './Cards/Usage'
 import ReactMarkdown from 'react-markdown'
-import Truncate from 'lodash.truncate'
 import { useState } from 'react'
+// @ts-ignore
+import truncateMarkdown from 'markdown-truncate'
 
 export function CloseButton(): ReactElement {
   return (
@@ -25,14 +26,20 @@ export function CloseButton(): ReactElement {
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default function Detail({ details, stats }: any): ReactElement {
   const [expandText, setExpandText] = useState(false)
+  const description = () => {
+    return truncateMarkdown(details.properties.Description, {
+      limit: 300,
+      ellipsis: true
+    });
+  };
   return (
-    <div className="border-b-gray-100 pb-2 ml-12 divide-y">
+    <div className="border-b-gray-100 divide-y">
       {/* <p className="font-medium text-gray-500 py-3 text-xs">
         DATA ASSET DETAIL
       </p> */}
-      <div className="mr-12">
+      <div className="relative w-full">
         <div className="border-b border-solid border-gray-200">
-          <div className="flex flex-row items-center justify-between font-medium text-gray-500 text-xs border-b border-gray-200 -mr-12 pr-3">
+          <div className="flex flex-row items-center justify-between pb-3 font-medium text-gray-500 text-xs border-b border-gray-200">
             <div className="py-3">
               <span className="block">DATA ASSET DETAIL</span>
             </div>
@@ -49,7 +56,7 @@ export default function Detail({ details, stats }: any): ReactElement {
                 {details.properties.PublishedBy}
               </span>
             </p>
-            <p>{4} Data assets </p>
+            <p>{details.properties.Consumed} Data assets </p>
           </div>
         </div>
         <div className="flex mt-5 text-sm leading-5 font-normal text-gray-500 justify-between">
@@ -70,10 +77,7 @@ export default function Detail({ details, stats }: any): ReactElement {
           {!expandText ? (
             <>
               <ReactMarkdown className="inline-block">
-                {Truncate(details.properties.Description, {
-                  length: 310,
-                  omission: '...',
-                })}
+                {description()}
               </ReactMarkdown>
               {details.properties.Description.length > 310 && (
                 <span

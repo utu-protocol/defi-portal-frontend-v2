@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { ReactElement, useEffect, useState } from 'react'
-import Item from '../../components/AssetOverview'
+// import Item from '../../components/AssetOverview'
 import Layout from '../../components/Layout'
 import AssetDetail from '../../components/AssetDetail'
 import { useDispatch, useSelector } from 'react-redux'
@@ -36,10 +36,10 @@ export default function OceanDetail(): ReactElement {
               <div className="flex shadow bg-white sm:rounded-lg overflow-hidden">
                 {details && (
                   <>
-                    <div className="relative w-1/3 border-gray-200 border-r border-r-solid">
+                    {/* <div className="relative w-1/3 border-gray-200 border-r border-r-solid">
                       <Item details={details?.target} />
-                    </div>
-                    <div className="relative w-2/3">
+                    </div> */}
+                    <div className="relative w-full px-12 py-6">
                       <AssetDetail
                         details={details?.target}
                         stats={details?.data}

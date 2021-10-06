@@ -15,7 +15,7 @@ import {
 import ConnectModal from '../components/ConnectModal'
 import UserAvatar from './UserAvatar'
 const navigation = [
-  { name: 'Ocean', href: '/ocean' },
+  { name: 'Ocean Market', href: '/ocean-market' },
   { name: 'DeFi', href: '/defi' },
 ]
 

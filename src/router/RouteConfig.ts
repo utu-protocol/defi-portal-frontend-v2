@@ -1,7 +1,7 @@
-import Home from '../pages/index';
-import Defi from '../pages/defi';
-import Ocean from '../pages/ocean/index';
-import OceanDetail from '../pages/ocean/detail';
+import Home from '../pages/index'
+import Defi from '../pages/defi'
+import Ocean from '../pages/ocean/index'
+import OceanDetail from '../pages/ocean/detail'
 
 export const routes = [
   {
@@ -15,7 +15,17 @@ export const routes = [
     component: Ocean,
   },
   {
+    path: '/ocean-market',
+    exact: true,
+    component: Ocean,
+  },
+  {
     path: '/ocean/:token',
+    // exact: true,
+    component: OceanDetail,
+  },
+  {
+    path: '/ocean-market/:token',
     // exact: true,
     component: OceanDetail,
   },
@@ -24,4 +34,4 @@ export const routes = [
     exact: true,
     component: Home,
   },
-];
+]

@@ -47,20 +47,26 @@ export const fetchAssets = () => async (dispatch: any, getState: any) => {
     }),
     targetType: 'Asset',
   }
-  const res = await fetch(
-    `${process.env.REACT_APP_UTU_API_BASE_URL}/ranking?${new URLSearchParams(
-      Object.entries(data)
-    ).toString()}`
-  )
-  const { result } = await res.json()
-
-  dispatch(setLoading(false))
-
-  dispatch({
-    type: 'SET_ASSETS',
-    payload: {
-      assets: result,
-    },
-  })
-  return result
+  try{
+    const res = await fetch(
+      `${process.env.REACT_APP_UTU_API_BASE_URL}/ranking?${new URLSearchParams(
+        Object.entries(data)
+      ).toString()}`
+    )
+    const { result } = await res.json()
+  
+    dispatch(setLoading(false))
+  
+    dispatch({
+      type: 'SET_ASSETS',
+      payload: {
+        assets: result,
+      },
+    })
+    return result
+  }catch(e){
+    // handle error
+    console.log(e);
+    return [];
+  }
 }
