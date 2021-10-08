@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useEffect, useMemo, useState } from 'react'
 // import Item from '../../components/AssetOverview'
 import Layout from '../../components/Layout'
 import AssetDetail from '../../components/AssetDetail'
@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { getAssetDetails } from '../../redux/actions/ocean.actions'
 import Loader from '../../components/Loader'
+import Tables from '../../components/Tables';
 
 export default function OceanDetail(): ReactElement {
   const [details, setDetails] = useState<any>(null)
@@ -22,7 +23,40 @@ export default function OceanDetail(): ReactElement {
   useEffect(() => {
     fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token])
+  }, [token]);
+
+  const data = useMemo(
+    () => [
+      {
+        col1: '<h1>Hello</h1>',
+        col2: 'World',
+      },
+      {
+        col1: 'react-table',
+        col2: 'rocks',
+      },
+      {
+        col1: 'whatever',
+        col2: 'you want',
+      },
+    ],
+    []
+  );
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: 'Age',
+        accessor: 'col1',
+      },
+      {
+        Header: 'Visits',
+        accessor: 'col2',
+      }
+    ],
+    []
+  );
+
   return (
     <Layout title="Ocean Market">
       {loading && !details ? (
@@ -52,6 +86,7 @@ export default function OceanDetail(): ReactElement {
           </div>
         </div>
       )}
+      <Tables columns={columns} data={data} />
     </Layout>
   )
 }
