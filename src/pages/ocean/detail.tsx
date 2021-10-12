@@ -22,7 +22,8 @@ export default function OceanDetail(): ReactElement {
   useEffect(() => {
     fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token])
+  }, [token]);
+
   return (
     <Layout title="Ocean Market">
       {loading && !details ? (
@@ -52,6 +53,7 @@ export default function OceanDetail(): ReactElement {
           </div>
         </div>
       )}
+
     </Layout>
   )
 }
