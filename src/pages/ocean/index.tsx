@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { fetchAssets } from '../../redux/actions/ocean.actions'
 import Loader from '../../components/Loader'
+import { Link } from 'react-router-dom';
 
 export const Ocean = (): ReactElement => {
   const dispatch = useDispatch()
@@ -21,10 +22,10 @@ export const Ocean = (): ReactElement => {
 
   const data = useMemo(
     () => {
-      console.log(assets);
       return assets.map(({ entity }: any) => ({
         col1: {
           name: entity.name,
+          address: entity.ids.address_datatoken,
           publisher: entity.properties.PublishedBy
         },
         col2: entity.properties.Purgatory ? 1 : 0,
@@ -43,10 +44,10 @@ export const Ocean = (): ReactElement => {
         id: 'name',
         accessor: 'col1',
         Cell: ({ value }: any) => {
-          return (<>
+          return (<Link to={`/ocean-market/${value.address}`}>
             <div className="text-sm font-medium text-gray-900">{value.name}</div>
             <div className="text-sm text-gray-500">{value.publisher}</div>
-          </>)
+          </Link>)
         }
       },
       {

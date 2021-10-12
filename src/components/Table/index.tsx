@@ -4,7 +4,6 @@ import Pagination from './Pagination';
 import Row from './Row'
 
 function Table({ columns, data }: { columns: any[]; data: any[] }) {
-  console.log(data.length);
   const {
     getTableProps,
     getTableBodyProps,

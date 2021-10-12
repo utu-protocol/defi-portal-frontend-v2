@@ -17,7 +17,6 @@ export default function Pagination({ total, canPreviousPage, canNextPage, pageOp
 
     const pageInputChange = (e: any) => {
         const value = Number(e.target.value);
-        console.log(value);
         if (value <= pageCount) {
             setCurrentPage(value);
         }
@@ -100,7 +99,7 @@ export default function Pagination({ total, canPreviousPage, canNextPage, pageOp
                             >
                                 {page}
                             </button>
-                        ) : (<div onClick={() => {
+                        ) : (<div key={`page-goto-${i}`} onClick={() => {
                             setShowPopup(true);
                             setCurrentPage(pageIndex + 1)
                         }} className="relative cursor-pointer inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">

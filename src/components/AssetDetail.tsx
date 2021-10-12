@@ -43,7 +43,7 @@ export default function Detail({ details, stats }: any): ReactElement {
             <div className="py-3">
               <span className="block">DATA ASSET DETAIL</span>
             </div>
-            <Link to="/ocean">
+            <Link to="/ocean-market">
               <CloseButton />
             </Link>
           </div>
