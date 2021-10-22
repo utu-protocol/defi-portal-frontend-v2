@@ -95,7 +95,12 @@ export const Ocean = (): ReactElement => {
           <Loader />{' '}
         </div>
       ) : (
-        <Table columns={columns} data={data} />
+        <Table columns={columns} data={data} initialSortBy={ [
+          { id: 'status' },
+          { id: 'your-network', desc: true },
+          { id: 'times-consumed', desc: true },
+          { id: 'name', desc: true }
+        ] } />
       )}
     </Layout>
   )

@@ -3,7 +3,9 @@ import Header from './Header'
 import Pagination from './Pagination';
 import Row from './Row'
 
-function Table({ columns, data }: { columns: any[]; data: any[] }) {
+function Table({ columns, data, initialSortBy }:
+                 { columns: any[]; data: any[],
+                   initialSortBy?: { id: string, desc?: boolean }[] }) {
   const {
     getTableProps,
     getTableBodyProps,
@@ -26,7 +28,7 @@ function Table({ columns, data }: { columns: any[]; data: any[] }) {
       {
         columns,
         data,
-        initialState: { pageSize: 25 } as any,
+        initialState: { pageSize: 25, sortBy: initialSortBy } as any,
       },
       useSortBy,
       usePagination
