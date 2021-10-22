@@ -46,7 +46,7 @@ export const getSortedProviders = async (address: string, cancelToken: CancelTok
 
   const sourceCriteria = encodeURIComponent(JSON.stringify({
     "type": "Address",
-    "ids": { address: address.toLowerCase() }
+    "ids": { address: address }
   }));
 
   if (callSubscribe) {
