@@ -15,7 +15,7 @@ export const getAssetDetails =
     const address = getState().wallet.address
     const data = {
       sourceCriteria: JSON.stringify({
-        type: 'User',
+        type: 'Address',
         ids: { address },
       }),
       targetCriteria: JSON.stringify({
@@ -42,7 +42,7 @@ export const fetchAssets = () => async (dispatch: any, getState: any) => {
   dispatch(setLoading(true));
   const data = {
     sourceCriteria: JSON.stringify({
-      type: 'User',
+      type: 'Address',
       ids: { address },
     }),
     targetType: 'Asset',
@@ -54,9 +54,9 @@ export const fetchAssets = () => async (dispatch: any, getState: any) => {
       ).toString()}`
     )
     const { result } = await res.json()
-  
+
     dispatch(setLoading(false))
-  
+
     dispatch({
       type: 'SET_ASSETS',
       payload: {
