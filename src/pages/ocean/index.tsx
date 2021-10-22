@@ -22,7 +22,7 @@ export const Ocean = (): ReactElement => {
 
   const data = useMemo(
     () => {
-      return assets.map(({ entity }: any) => ({
+      return assets.map(({ entity, summaryText }: any) => ({
         col1: {
           name: entity.name,
           address: entity.ids.address_datatoken,
@@ -30,7 +30,7 @@ export const Ocean = (): ReactElement => {
         },
         col2: entity.properties.Purgatory ? 1 : 0,
         col3: entity.properties.PublishedBy,
-        col4: entity.summaryText,
+        col4: summaryText,
         col5: entity.properties.Consumed,
       }))
     },
