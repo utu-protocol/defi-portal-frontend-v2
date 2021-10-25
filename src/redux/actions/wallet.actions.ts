@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import Web3Modal from 'web3modal'
+import Web3 from 'web3'
 import { providers } from 'ethers'
 // @ts-ignore
 import EthereumAddress from 'ethereum-address'
@@ -70,10 +71,12 @@ export const storeAddress =
       return false
     }
 
+    const checksumed = Web3.utils.toChecksumAddress(address);
+
     dispatch({
       type: 'SET_ADDRESS',
       payload: {
-        address: address,
+        address: checksumed,
       },
     })
 
