@@ -73,7 +73,7 @@ export const storeAddress =
     dispatch({
       type: 'SET_ADDRESS',
       payload: {
-        address: address,
+        address: String(address).toLowerCase(),
       },
     })
 

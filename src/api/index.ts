@@ -43,14 +43,16 @@ const defiRequest = axios.create({
 });
 
 export const getSortedProviders = async (address: string, cancelToken: CancelToken, callSubscribe?: boolean): Promise<AxiosResponse<IProtocolsResult>> => {
-
+  const addressConverted = String(address).toLowerCase();
   const sourceCriteria = encodeURIComponent(JSON.stringify({
     "type": "Address",
-    "ids": { address: address }
+    "ids": { address: addressConverted }
   }));
 
+  
+
   if (callSubscribe) {
-    await defiRequest.post(`subscribe/${address}`, undefined, { cancelToken });
+    await defiRequest.post(`subscribe/${addressConverted}`, undefined, { cancelToken });
   }
 
   const response = await apiRequest.get(
