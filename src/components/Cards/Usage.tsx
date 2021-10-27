@@ -26,10 +26,12 @@ export function StatColumn({
 
 export function CardDetails({
   details,
+  cardTitle,
   consumersText,
   liquidityText,
 }: {
   details: any
+  cardTitle: string
   consumersText: string
   liquidityText: string
 }): JSX.Element {
@@ -52,7 +54,7 @@ export function CardDetails({
       <div className="bg-yellow-50 border border-yellow-200 overflow-hidden rounded-lg">
         <div className="py-3 px-7">
           <div className="text-xs leading-4 font-medium tracking-wider uppercase text-yellow-900">
-            USAGE of this data assets
+            {cardTitle}
           </div>
         </div>
         <div className="flex justify-between divide-x divide-yellow-200 border-yellow-200 border-t border-t-solid">
@@ -121,6 +123,7 @@ export default function UsageCard({ stats }: { stats: any }): JSX.Element {
       {stats.networkInteraction && (
         <CardDetails
           details={stats.networkInteraction}
+          cardTitle="Usage of this data asset"
           consumersText="In your network consumed this data asset"
           liquidityText="In your network provided liquidity for this data asset"
         />
@@ -128,6 +131,7 @@ export default function UsageCard({ stats }: { stats: any }): JSX.Element {
       {stats.publisherInteraction && (
         <CardDetails
           details={stats.publisherInteraction}
+          cardTitle="Usage of other data asset by the same publisher"
           consumersText="In your network consumed data assets of this data asset's publisher"
           liquidityText="In your network provided liquidity for  this data asset's publisher"
         />
