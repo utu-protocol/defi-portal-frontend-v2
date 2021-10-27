@@ -16,7 +16,7 @@ export const getAssetDetails =
     const data = {
       sourceCriteria: JSON.stringify({
         type: 'Address',
-        ids: { address },
+        ids: { address: String(address).toLowerCase() },
       }),
       targetCriteria: JSON.stringify({
         type: 'Asset',
@@ -43,7 +43,7 @@ export const fetchAssets = () => async (dispatch: any, getState: any) => {
   const data = {
     sourceCriteria: JSON.stringify({
       type: 'Address',
-      ids: { address },
+      ids: { address: String(address).toLowerCase() },
     }),
     targetType: 'Asset',
   }
