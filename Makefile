@@ -2,7 +2,7 @@
 OUTPUTFOLDER = build
 # docker image
 S3_BUCKET = s3://defi-portal-frontend
-CF_DISTRIBUTION_ID = NOTSET
+CF_DISTRIBUTION_ID = E760LVUFPER2T
 AWS_PROFILE = utu.live
 
 .PHONY: list
@@ -22,6 +22,6 @@ build:
 deploy:
 	@echo deploy S3
 	aws --profile $(AWS_PROFILE) s3 sync --acl public-read ./$(OUTPUTFOLDER) $(S3_BUCKET)
-	# aws --profile $(AWS_PROFILE) cloudfront create-invalidation --distribution-id $(CF_DISTRIBUTION_ID) --paths '/*'
+	aws --profile $(AWS_PROFILE) cloudfront create-invalidation --distribution-id $(CF_DISTRIBUTION_ID) --paths '/*'
 	@echo "deploy S3 done (wait a minute for the cache to be invalidated)"
 
