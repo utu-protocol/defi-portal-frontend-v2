@@ -56,7 +56,7 @@ export default function Detail({ details, stats }: any): ReactElement {
                 {details.properties.PublishedBy}
               </span>
             </p>
-            <p>{details.properties.Consumed} Data assets </p>
+            <p>{stats.publisherInfo?.totalAssets && stats.publisherInfo.totalAssets + " data assets"}</p>
           </div>
         </div>
         <div className="flex mt-5 text-sm leading-5 font-normal text-gray-500 justify-between">
