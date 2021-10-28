@@ -6,6 +6,7 @@ import Layout from '../components/Layout'
 import { CancelTokenSource } from 'axios'
 import { useProtocols } from '../hooks'
 import Loader from '../components/Loader'
+import TrustEngine from '../components/trustEngine'
 // 0xd5643F1Ff4218C2B09239885D9bF4e99f4a65F79
 
 const intervalSeconds = 60
@@ -46,7 +47,7 @@ const DeFi = (): ReactElement => {
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
               <div className="shadow overflow-hidden bg-white border-b border-gray-200 sm:rounded-lg flex flex-col divide-y divide-gray-200">
                 {protocols && protocols.length
-                  ? protocols.map((protocol: any) => {
+                  ? protocols.map((protocol: any, index: number) => {
                     const relationshipsFound =
                       protocol.summaryImages.length > 0
                     return (
@@ -56,8 +57,8 @@ const DeFi = (): ReactElement => {
                         target="_blank"
                         className="block cursor-pointer"
                       >
-                        <div className="flex py-3 justify-between hover:bg-gray-50">
-                          <div className="flex">
+                        <div className="flex py-3 hover:bg-gray-50">
+                          <div className="flex flex-1">
                             <div className="flex-shrink-0 px-4">
                               <img
                                 className={`h-12 w-12 rounded-full border-solid border-2 border-gray-200 ${relationshipsFound ? '' : ' text-gray-200'
@@ -69,15 +70,15 @@ const DeFi = (): ReactElement => {
                             <div className="">
                               <div
                                 className={`mt-1 text-xl leading-5 font-medium truncate ${relationshipsFound
-                                    ? 'text-yellow-900'
-                                    : 'text-gray-700'
+                                  ? 'text-yellow-900'
+                                  : 'text-gray-700'
                                   }`}
                               >
                                 {protocol.entity.name}{' '}
                                 <span
                                   className={`text-xs ${relationshipsFound
-                                      ? 'text-yellow-600'
-                                      : 'text-gray-400'
+                                    ? 'text-yellow-600'
+                                    : 'text-gray-400'
                                     }`}
                                 >
                                   [{protocol.entity.properties.category}]
@@ -85,8 +86,8 @@ const DeFi = (): ReactElement => {
                               </div>
                               <div
                                 className={`mt-1 flex items-center text-sm leading-5 ${relationshipsFound
-                                    ? 'text-yellow-700'
-                                    : 'text-gray-500'
+                                  ? 'text-yellow-700'
+                                  : 'text-gray-500'
                                   }`}
                               >
                                 <span className="truncate">
@@ -95,7 +96,10 @@ const DeFi = (): ReactElement => {
                               </div>
                             </div>
                           </div>
-                          <div className="pr-4 flex items-center text-gray-400">
+                          <div className="flex-1">
+                            <TrustEngine summaryImages={protocol.summaryImages} summaryText={protocol.summaryText} index={index}></TrustEngine>
+                          </div>
+                          <div className="pr-4 flex items-center text-gray-400 ml-auto flex-none">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               className="h-6 w-6"
