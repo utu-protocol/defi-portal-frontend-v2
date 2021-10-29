@@ -45,19 +45,24 @@ const DeFi = (): ReactElement => {
         ) : (
           <div className="-my-2 overflow-x-auto py-8 sm:-mx-6 lg:-mx-8">
             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-              <div className="shadow overflow-hidden bg-white border-b border-gray-200 sm:rounded-lg flex flex-col divide-y divide-gray-200">
+              <div className="shadow overflow-hidden bg-white border-b border-gray-200 sm:rounded-lg flex flex-col divide-y">
+                <div className="bg-yellow-300 text-center py-3 text-gray-700 border-yellow-200 flex items-center justify-center space-x-2">
+                  <p>Powered by</p>
+                  <img src={`/logo.png`} alt="utu-logo" className="w-5 h-5" />
+                  <p>UTU Trust Engine</p>
+                </div>
                 {protocols && protocols.length
                   ? protocols.map((protocol: any, index: number) => {
                     const relationshipsFound =
-                      protocol.summaryImages.length > 0
+                      protocol.summaryImages.length > 0 || protocol.summaryText?.length > 0 
                     return (
                       <a
                         key={`protocol-list-item${protocol.entity.name}`}
                         href={protocol.entity.properties.url}
                         target="_blank"
-                        className="block cursor-pointer"
+                        className={`block cursor-pointer ${relationshipsFound || index === 0 ? 'border-yellow-200' : 'border-gray-200'} ${relationshipsFound ? 'bg-yellow-100 hover:bg-yellow-200' : 'hover:bg-gray-50'}`}
                       >
-                        <div className="flex py-3 hover:bg-gray-50">
+                        <div className="flex py-3">
                           <div className="flex flex-1">
                             <div className="flex-shrink-0 px-4">
                               <img
@@ -69,24 +74,18 @@ const DeFi = (): ReactElement => {
                             </div>
                             <div className="">
                               <div
-                                className={`mt-1 text-xl leading-5 font-medium truncate ${relationshipsFound
-                                  ? 'text-yellow-900'
-                                  : 'text-gray-700'
-                                  }`}
+                                className={`mt-1 text-xl leading-5 font-medium truncate text-gray-900`}
                               >
                                 {protocol.entity.name}{' '}
                                 <span
-                                  className={`text-xs ${relationshipsFound
-                                    ? 'text-yellow-600'
-                                    : 'text-gray-400'
-                                    }`}
+                                  className={`text-xs text-gray-500`}
                                 >
                                   [{protocol.entity.properties.category}]
                                 </span>
                               </div>
                               <div
                                 className={`mt-1 flex items-center text-sm leading-5 ${relationshipsFound
-                                  ? 'text-yellow-700'
+                                  ? 'text-gray-700'
                                   : 'text-gray-500'
                                   }`}
                               >
@@ -99,7 +98,7 @@ const DeFi = (): ReactElement => {
                           <div className="flex-1">
                             <TrustEngine summaryImages={protocol.summaryImages} summaryText={protocol.summaryText} index={index}></TrustEngine>
                           </div>
-                          <div className="pr-4 flex items-center text-gray-400 ml-auto flex-none">
+                          <div className="pr-4 flex items-center text-gray-500 ml-auto flex-none">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               className="h-6 w-6"
