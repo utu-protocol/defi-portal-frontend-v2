@@ -9,6 +9,9 @@ import { fetchAssets } from '../../redux/actions/ocean.actions'
 import Loader from '../../components/Loader'
 import { Link } from 'react-router-dom';
 
+const intervalSeconds = 60
+let interval: any
+
 export const Ocean = (): ReactElement => {
   const dispatch = useDispatch()
   const { assets, loading } = useSelector((state: any) => ({
@@ -17,6 +20,13 @@ export const Ocean = (): ReactElement => {
   }))
   useEffect(() => {
     dispatch(fetchAssets())
+    interval = setInterval(function () {
+      dispatch(fetchAssets())
+    }, intervalSeconds * 1000)
+    
+    return () => {
+      clearInterval(interval)
+    };
   }, []);
 
 
@@ -95,12 +105,12 @@ export const Ocean = (): ReactElement => {
           <Loader />{' '}
         </div>
       ) : (
-        <Table columns={columns} data={data} initialSortBy={ [
+        <Table columns={columns} data={data} initialSortBy={[
           { id: 'status' },
           { id: 'your-network', desc: true },
           { id: 'times-consumed', desc: true },
           { id: 'name', desc: true }
-        ] } />
+        ]} />
       )}
     </Layout>
   )
