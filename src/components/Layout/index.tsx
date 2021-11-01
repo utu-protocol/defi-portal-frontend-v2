@@ -24,14 +24,17 @@ export default function Layout({
   const web3Modal = getWeb3Modal()
   const dispatch = useDispatch()
   // const [isLoading, setLoading] = useState(false)
-  const connect = useCallback(() => dispatch(connectAction()), [])
+  const connect = useCallback(async (reload = true) => {
+    await dispatch(connectAction());
+    if (reload) window.location.reload();
+  }, [])
 
   const disconnect = useCallback(() => dispatch(disconnectAction()), [provider])
 
   // Auto connect to the cached provider
   useEffect(() => {
     if (web3Modal.cachedProvider) {
-      connect()
+      connect(false)
     }
   }, [connect])
 

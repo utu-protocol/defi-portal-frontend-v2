@@ -41,7 +41,7 @@ export const connect = () => async (dispatch: any) => {
   const address = await signer.getAddress()
 
   const network = await web3Provider.getNetwork()
-  dispatch({
+  await dispatch({
     type: 'SET_WEB3_PROVIDER',
     payload: {
       provider: {},
@@ -58,9 +58,10 @@ export const disconnect = () => async (dispatch: any, getState: any) => {
   if (provider?.disconnect && typeof provider.disconnect === 'function') {
     await provider.disconnect()
   }
-  dispatch({
+  await dispatch({
     type: 'RESET_WEB3_PROVIDER',
   })
+  window.location.reload();
 }
 
 export const storeAddress =
@@ -70,12 +71,13 @@ export const storeAddress =
       return false
     }
 
-    dispatch({
+    await dispatch({
       type: 'SET_ADDRESS',
       payload: {
         address: String(address).toLowerCase(),
       },
     })
 
+    window.location.reload();
     return true
   }
