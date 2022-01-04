@@ -32,15 +32,10 @@ export default function TrustEngine({
       {summaryText == undefined ? '' : <x-utu-root source-uuid='user-1' target-type='provider'>
         <x-utu-feedback-form-popup source-uuid='user-1' target-uuid='offer.id' transaction-id='offer.id'>
         </x-utu-feedback-form-popup>
-        <x-utu-feedback-details-popup target-uuid='offer.id'>
-        </x-utu-feedback-details-popup>
+        {summaryText.includes('You used') ? <x-utu-feedback-details-popup target-uuid='offer.id'>
+        </x-utu-feedback-details-popup> : ''}
+
       </x-utu-root>}
-      {/*<x-utu-root source-uuid='user-1' target-type='provider'>*/}
-      {/*  <x-utu-feedback-form-popup source-uuid='user-1' target-uuid='offer.id' transaction-id='offer.id'>*/}
-      {/*  </x-utu-feedback-form-popup>*/}
-      {/*  <x-utu-feedback-details-popup target-uuid="offer.id">*/}
-      {/*  </x-utu-feedback-details-popup>*/}
-      {/*</x-utu-root>*/}
     </div>
 
     {itemsToShow.length > 0 ? (<div className='flex items-center space-x-2 mt-2'>
