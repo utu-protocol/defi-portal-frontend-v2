@@ -96,6 +96,7 @@ const DeFi = (): ReactElement => {
                             </div>
                           </div>
                           <div className="flex-1">
+                            {/*{protocol.summaryText == "" ? "": ""}*/}
                             <TrustEngine summaryImages={protocol.summaryImages} summaryText={protocol.summaryText} index={index}></TrustEngine>
                           </div>
                           <div className="pr-4 flex items-center text-gray-500 ml-auto flex-none">
