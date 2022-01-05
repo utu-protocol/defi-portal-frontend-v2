@@ -1,6 +1,7 @@
 import React from 'react'
 import UserAvatar from './UserAvatar'
 import '@ututrust/web-components'
+import { useSelector } from 'react-redux'
 
 declare global {
   namespace JSX {
@@ -18,23 +19,26 @@ const ethereumAddressLength = 42
 export default function TrustEngine({
                                       summaryImages,
                                       summaryText,
-                                      index
-                                    }: { summaryImages: string[], summaryText: string; index: number }) {
+                                      index,
+                                      protocolAddress
+                                    }: { summaryImages: string[], summaryText: string; index: number,protocolAddress:string }) {
   let countToShow = maxItemsToShow - index * 2
   countToShow = countToShow > 2 ? countToShow : 2
 
-
+  const { provider, web3Provider, address, chainId } = useSelector(
+    (state: any) => state.wallet
+  )
   const itemsToShow = (summaryImages || []).slice(0, countToShow)
   const itemsToHide = (summaryImages || []).length - itemsToShow.length
   return <div className=''>
     <div className='text-sm leading-5 text-gray-700'>
       {summaryText}
-      {summaryText == undefined ? '' : <x-utu-root source-uuid='user-1' target-type='provider'>
-        <x-utu-feedback-form-popup source-uuid='user-1' target-uuid='offer.id' transaction-id='offer.id'>
-        </x-utu-feedback-form-popup>
-        {summaryText.includes('You used') ? <x-utu-feedback-details-popup target-uuid='offer.id'>
-        </x-utu-feedback-details-popup> : ''}
-
+      {summaryText == undefined ? '' : <x-utu-root source-uuid={address} target-type='product'>
+        <x-utu-feedback-details-popup target-uuid={protocolAddress}>
+        </x-utu-feedback-details-popup>
+        {summaryText.includes('You used') ?
+          <x-utu-feedback-form-popup source-uuid={address} target-uuid='offer.id' transaction-id={address}>
+          </x-utu-feedback-form-popup> : ''}
       </x-utu-root>}
     </div>
 
