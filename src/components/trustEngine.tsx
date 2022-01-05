@@ -33,11 +33,11 @@ export default function TrustEngine({
   return <div className=''>
     <div className='text-sm leading-5 text-gray-700'>
       {summaryText}
-      {summaryText == undefined ? '' : <x-utu-root source-uuid={address} target-type='product'>
+      {summaryText == null ? '' : <x-utu-root source-uuid={address} target-type='product'>
         <x-utu-feedback-details-popup target-uuid={protocolAddress}>
         </x-utu-feedback-details-popup>
         {summaryText.includes('You used') ?
-          <x-utu-feedback-form-popup source-uuid={address} target-uuid='offer.id' transaction-id={address}>
+          <x-utu-feedback-form-popup source-uuid={address} target-uuid={protocolAddress} transaction-id={address}>
           </x-utu-feedback-form-popup> : ''}
       </x-utu-root>}
     </div>
