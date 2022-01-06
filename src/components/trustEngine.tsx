@@ -21,7 +21,7 @@ export default function TrustEngine({
                                       summaryText,
                                       index,
                                       protocolAddress
-                                    }: { summaryImages: string[], summaryText: string; index: number,protocolAddress:string }) {
+                                    }: { summaryImages: string[], summaryText: string; index: number, protocolAddress: string }) {
   let countToShow = maxItemsToShow - index * 2
   countToShow = countToShow > 2 ? countToShow : 2
 
