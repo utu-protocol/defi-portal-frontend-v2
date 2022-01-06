@@ -16,6 +16,8 @@ const DeFi = (): ReactElement => {
   const { protocols, loading, getProtocols, triggerSubscriptionAndGetProtocols } =
     useProtocols()
 
+  console.log(protocols)
+
   useEffect(() => {
     const triggerCancelTokenSource = triggerSubscriptionAndGetProtocols()
     let getProtocolsCancelTokenSource: CancelTokenSource
@@ -88,8 +90,15 @@ const DeFi = (): ReactElement => {
                                   {protocol.entity.properties.description}
                                 </span>
                               </div>
+<<<<<<< HEAD
                             </div> 
                             </div>                      
+=======
+                            </div>
+                          </div>
+                          <div className="flex-1">
+                            <TrustEngine summaryImages={protocol.summaryImages} summaryText={protocol.summaryText} index={index} protocolAddress={protocol.entity.ids.address}></TrustEngine>
+>>>>>>> 5f9e28bd6dda591ed84e70fbd293b5927861b949
                           </div>
                           <div className="w-1/3 ml-4 flex justify-start items-start text-gray-500 flex-none">
                           <a
