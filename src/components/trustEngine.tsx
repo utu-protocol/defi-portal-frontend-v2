@@ -29,7 +29,7 @@ export default function TrustEngine({
   return <div className=''>
     <div className='text-sm leading-5 text-gray-700'>
       {summaryText}
-      {summaryText == undefined ? '' : <x-utu-root source-uuid='user-1' target-type='provider'>
+      {summaryText === undefined ? '' : <x-utu-root source-uuid='user-1' target-type='provider'>
         <x-utu-feedback-form-popup source-uuid='user-1' target-uuid='offer.id' transaction-id='offer.id'>
         </x-utu-feedback-form-popup>
         {summaryText.includes('You used') ? <x-utu-feedback-details-popup target-uuid='offer.id'>
