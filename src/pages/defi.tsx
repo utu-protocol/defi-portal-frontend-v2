@@ -56,35 +56,30 @@ const DeFi = (): ReactElement => {
                     const relationshipsFound =
                       protocol.summaryImages.length > 0 || protocol.summaryText?.length > 0 
                     return (
-                      <a
-                        key={`protocol-list-item${protocol.entity.name}`}
-                        href={protocol.entity.properties.url}
-                        target="_blank"
-                        className={`block cursor-pointer ${relationshipsFound || index === 0 ? 'border-yellow-200' : 'border-gray-200'} ${relationshipsFound ? 'bg-yellow-100 hover:bg-yellow-200' : 'hover:bg-gray-50'}`}
-                      >
-                        <div className="flex py-3">
+                        <div className="flex py-3">  
+                          <div className="flex flex-1 justify-around w-1/3">
                           <div className="flex flex-1">
                             <div className="flex-shrink-0 px-4">
                               <img
-                                className={`h-12 w-12 rounded-full border-solid border-2 border-gray-200 ${relationshipsFound ? '' : ' text-gray-200'
+                                className={`h-12 w-12 rounded-full ${relationshipsFound ? '' : ' text-gray-200'
                                   }`}
                                 src={`/protocols/${protocol.entity.name.toLowerCase()}.png`}
                                 alt=""
                               />
                             </div>
-                            <div className="">
+                            <div className="max-w-fit pr-16">
                               <div
                                 className={`mt-1 text-xl leading-5 font-medium truncate text-gray-900`}
                               >
                                 {protocol.entity.name}{' '}
                                 <span
-                                  className={`text-xs text-gray-500`}
+                                  className={`max-w-fit text-xs text-gray-500`}
                                 >
                                   [{protocol.entity.properties.category}]
                                 </span>
                               </div>
                               <div
-                                className={`mt-1 flex items-center text-sm leading-5 ${relationshipsFound
+                                className={`mt-1 mw-75 flex items-center text-sm leading-5 ${relationshipsFound
                                   ? 'text-gray-700'
                                   : 'text-gray-500'
                                   }`}
@@ -93,15 +88,19 @@ const DeFi = (): ReactElement => {
                                   {protocol.entity.properties.description}
                                 </span>
                               </div>
-                            </div>
+                            </div> 
+                            </div>                      
                           </div>
-                          <div className="flex-1">
-                            <TrustEngine summaryImages={protocol.summaryImages} summaryText={protocol.summaryText} index={index}></TrustEngine>
-                          </div>
-                          <div className="pr-4 flex items-center text-gray-500 ml-auto flex-none">
+                          <div className="w-1/3 ml-4 flex justify-start items-start text-gray-500 flex-none">
+                          <a
+                        key={`protocol-list-item${protocol.entity.name}`}
+                        href={protocol.entity.properties.url}
+                        target="_blank"
+                        className={`block cursor-pointer ${relationshipsFound || index === 0 ? 'border-yellow-200' : 'border-gray-200'} ${relationshipsFound ? 'bg-yellow-100 hover:bg-yellow-200' : 'hover:bg-gray-50'}`}
+                      >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
-                              className="h-6 w-6"
+                              className="h-8 w-8"
                               fill="none"
                               viewBox="0 0 24 24"
                               stroke="currentColor"
@@ -113,9 +112,12 @@ const DeFi = (): ReactElement => {
                                 d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
                               />
                             </svg>
+                            </a>
+                          </div> 
+                          <div className="flex-1 w-1/3">
+                            <TrustEngine summaryImages={protocol.summaryImages} summaryText={protocol.summaryText} index={index}></TrustEngine>
                           </div>
                         </div>
-                      </a>
                     )
                   })
                   : null}
