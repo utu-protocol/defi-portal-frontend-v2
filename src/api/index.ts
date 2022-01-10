@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, CancelToken } from 'axios';
-
+import { CORE_API_URL, DEFI_URL } from '../Config';
 export interface IRelationshipPath {
   targetEntity: {
     relationship: {
@@ -32,14 +32,14 @@ export interface IProtocolsResult {
 }
 
 const apiRequest = axios.create({
-  baseURL: process.env.REACT_APP_UTU_API_BASE_URL,
+  baseURL: CORE_API_URL,
   headers: {
     'UTU-Trust-Api-Client-Id': 'defiPortal'
   }
 });
 
 const defiRequest = axios.create({
-  baseURL: process.env.REACT_APP_UTU_DEFI_URL
+  baseURL: DEFI_URL
 });
 
 export const getSortedProviders = async (address: string, cancelToken: CancelToken, callSubscribe?: boolean): Promise<AxiosResponse<IProtocolsResult>> => {
@@ -56,7 +56,7 @@ export const getSortedProviders = async (address: string, cancelToken: CancelTok
   }
 
   const response = await apiRequest.get(
-    `${process.env.REACT_APP_UTU_API_BASE_URL}/ranking?sourceCriteria=${sourceCriteria}&targetType=DeFiProtocol`,
+    `${CORE_API_URL }/ranking?sourceCriteria=${sourceCriteria}&targetType=DeFiProtocol`,
     { cancelToken }
   );
 

@@ -1,3 +1,5 @@
+import { CORE_API_URL } from "../../Config";
+
 export const setLoading = (value: boolean) => async (dispatch: any) => {
   dispatch({
     type: 'SET_OCEAN_LOADING',
@@ -27,7 +29,7 @@ export const getAssetDetails =
     }
     const res = await fetch(
       `${
-        process.env.REACT_APP_UTU_API_BASE_URL
+        CORE_API_URL
       }/interactionSummary?${new URLSearchParams(
         Object.entries(data)
       ).toString()}`
@@ -49,7 +51,7 @@ export const fetchAssets = () => async (dispatch: any, getState: any) => {
   }
   try{
     const res = await fetch(
-      `${process.env.REACT_APP_UTU_API_BASE_URL}/ranking?${new URLSearchParams(
+      `${CORE_API_URL}/ranking?${new URLSearchParams(
         Object.entries(data)
       ).toString()}`
     )

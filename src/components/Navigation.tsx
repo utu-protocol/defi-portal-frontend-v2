@@ -139,7 +139,7 @@ export default function Navigation({
                     <button
                       className="w-full border-white border-2 space-x-3 flex-row flex justify-between  rounded-md shadow pr-3 py-2 bg-transparent text-white font-mediumnhover:bg-white hover:bg-white hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
                       type="button"
-                      onClick={() => setIsConnectOpen(true)}
+                      onClick={() => connect()}
                     >
                       <p>
                         <LoginIcon

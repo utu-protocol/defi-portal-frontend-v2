@@ -7,6 +7,7 @@ import Navigation from '../Navigation'
 import styles from './layout.module.css'
 import {
   connect as connectAction,
+  connectApi,
   disconnect as disconnectAction,
   getWeb3Modal,
 } from '../../redux/actions/wallet.actions'
@@ -25,7 +26,7 @@ export default function Layout({
   const dispatch = useDispatch()
   // const [isLoading, setLoading] = useState(false)
   const connect = useCallback(async (reload = true) => {
-    await dispatch(connectAction());
+    await dispatch(connectAction(reload));
     if (reload) window.location.reload();
   }, [])
 
@@ -37,55 +38,7 @@ export default function Layout({
       connect(false)
     }
   }, [connect])
-
-  // A `provider` should come with EIP-1193 events. We'll listen for those events
-  // here so that when a user switches accounts or networks, we can update the
-  // local React state with that new information.
-  useEffect(() => {
-    if (provider?.on) {
-      const handleAccountsChanged = (accounts: string[]) => {
-        // eslint-disable-next-line no-console
-        console.log('accountsChanged', accounts)
-        dispatch({
-          type: 'SET_ADDRESS',
-          payload: {
-            address: accounts[0],
-          },
-        })
-      }
-
-      const handleChainChanged = (accounts: string[]) => {
-        // eslint-disable-next-line no-console
-        console.log('accountsChanged', accounts)
-        dispatch({
-          type: 'SET_ADDRESS',
-          payload: {
-            address: accounts[0],
-          },
-        })
-      }
-
-      const handleDisconnect = (error: { code: number; message: string }) => {
-        // eslint-disable-next-line no-console
-        console.log('disconnect', error)
-        disconnect()
-      }
-
-      provider.on('accountsChanged', handleAccountsChanged)
-      provider.on('chainChanged', handleChainChanged)
-      provider.on('disconnect', handleDisconnect)
-
-      // Subscription Cleanup
-      return () => {
-        if (provider.removeListener) {
-          provider.removeListener('accountsChanged', handleAccountsChanged)
-          provider.removeListener('chainChanged', handleChainChanged)
-          provider.removeListener('disconnect', handleDisconnect)
-        }
-      }
-    }
-  }, [provider, disconnect])
-
+  
   const chainData = getChainData(chainId)
 
   return (
