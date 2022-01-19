@@ -17,11 +17,11 @@ const maxItemsToShow = 8
 const ethereumAddressLength = 42
 
 export default function TrustEngine({
-                                      summaryImages,
-                                      summaryText,
-                                      index,
-                                      protocolAddress
-                                    }: { summaryImages: string[], summaryText: string; index: number, protocolAddress: string }) {
+  summaryImages,
+  summaryText,
+  index,
+  protocolAddress
+}: { summaryImages: string[], summaryText: string; index: number, protocolAddress: string }) {
   let countToShow = maxItemsToShow - index * 2
   countToShow = countToShow > 2 ? countToShow : 2
 
@@ -30,13 +30,16 @@ export default function TrustEngine({
   )
   const itemsToShow = (summaryImages || []).slice(0, countToShow)
   const itemsToHide = (summaryImages || []).length - itemsToShow.length
+
+  console.log(protocolAddress);
+
   return <div className=''>
     <div className='text-sm leading-5 text-gray-700'>
       {summaryText}
-      {summaryText == null ? '' : <x-utu-root source-uuid={address} target-type='product'>
+      {summaryText == null && !true ? '' : <x-utu-root source-uuid={address} target-type='product'>
         <x-utu-feedback-details-popup target-uuid={protocolAddress}>
         </x-utu-feedback-details-popup>
-        {summaryText.includes('You used') ?
+        {summaryText?.includes('You used') || true ?
           <x-utu-feedback-form-popup source-uuid={address} target-uuid={protocolAddress} transaction-id={address}>
           </x-utu-feedback-form-popup> : ''}
       </x-utu-root>}

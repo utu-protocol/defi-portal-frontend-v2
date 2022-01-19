@@ -117,7 +117,7 @@ const DeFi = (): ReactElement => {
                             </a>
                           </div> 
                           <div className="flex-1 w-1/3">
-                            <TrustEngine summaryImages={protocol.summaryImages} summaryText={protocol.summaryText} protocolAddress={protocol.protocolAddress} index={index}></TrustEngine>
+                            <TrustEngine summaryImages={protocol.summaryImages} summaryText={protocol.summaryText} protocolAddress={protocol?.entity?.ids?.address} index={index}></TrustEngine>
                           </div>
                         </div>
                     )

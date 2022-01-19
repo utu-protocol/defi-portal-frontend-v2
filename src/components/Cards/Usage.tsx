@@ -1,6 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 import UserAvatar from '../UserAvatar'
-import Web3 from 'web3'
+import { ethers } from 'ethers'
 
 export function StatColumn({
   title,
@@ -36,7 +36,7 @@ export function CardDetails({
   liquidityText: string
 }): JSX.Element {
   const sliceAddress = (address: string) => {
-    const value = Web3.utils.toChecksumAddress(address)
+    const value = ethers.utils.getAddress(address);
     const characters = value.split('')
     const slices = []
     slices.push(characters.slice(0, 4))
