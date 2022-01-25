@@ -1,31 +1,31 @@
 import { ReactElement } from 'react'
-import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Layout from '../components/Layout'
 
-import { connect, storeAddress } from '../redux/actions/wallet.actions'
+import { connect } from '../redux/actions/wallet.actions'
 
 export const Home = (): ReactElement => {
   const dispatch = useDispatch()
-  const { address } = useSelector((state: any) => state)
-  const [ethAddress, setEthAddress] = useState('')
-  const [errorMsg, setErrorMsg] = useState('')
+  const { address } = useSelector((state: any) => state.wallet)
+  // const [ethAddress, setEthAddress] = useState('')
+  // const [errorMsg, setErrorMsg] = useState('')
 
-  const openDashboard = async () => {
-    const result = await dispatch(storeAddress({ address: ethAddress }))
-    if (!result) {
-      setErrorMsg('Please provide a valid Ethereum address')
-      return
-    }
-  }
+  // const openDashboard = async () => {
+  //   const result = await dispatch(storeAddress({ address: ethAddress }))
+  //   if (!result) {
+  //     setErrorMsg('Please provide a valid Ethereum address')
+  //     return
+  //   }
+  // }
 
-  const onChangeAddress = (e: any) => {
-    if (errorMsg) {
-      setErrorMsg('')
-    }
+  // const onChangeAddress = (e: any) => {
+  //   if (errorMsg) {
+  //     setErrorMsg('')
+  //   }
 
-    setEthAddress(e.target.value)
-  }
+  //   setEthAddress(e.target.value)
+  // }
+
 
   return (
     <Layout
@@ -48,7 +48,7 @@ export const Home = (): ReactElement => {
         {!address && (
           <>
             <div className="mt-8 sm:flex" aria-labelledby="newsletter-headline">
-              <div className="w-full sm:max-w-lg">
+              {/* <div className="w-full sm:max-w-lg">
                 <input
                   onChange={onChangeAddress}
                   value={ethAddress}
@@ -57,8 +57,8 @@ export const Home = (): ReactElement => {
                   className="font-mono appearance-none w-full px-5 py-3 border border-gray-300 text-base leading-6 rounded-md text-gray-900 bg-white placeholder-gray-500 focus:outline-none focus:shadow-outline focus:border-blue-300 transition duration-150 ease-in-out"
                   placeholder="Enter ENS domain or a Ethereum address"
                 />
-              </div>
-              <div className="flex mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0">
+              </div> */}
+              {/* <div className="flex mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0">
                 <button
                   onClick={openDashboard}
                   className="w-full flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-black hover:shadow-md focus:outline-none transition duration-150 ease-in-out"
@@ -66,12 +66,12 @@ export const Home = (): ReactElement => {
                   {"Let's Go!"}
                 </button>
               </div>
-              <p className="ml-4 mr-2 mt-3">or</p>
-              <div className="flex mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0">
+              <p className="ml-4 mr-2 mt-3">or</p> */}
+              <div className="flex mt-3 rounded-md shadow sm:mt-0 sm:flex-shrink-0">
                 <button
                   type="button"
                   onClick={() => {
-                    dispatch(connect())
+                    dispatch(connect(true))
                   }}
                   className="bg-primary w-full flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white hover:shadow-md focus:outline-none transition duration-150 ease-in-out"
                 >
@@ -79,7 +79,7 @@ export const Home = (): ReactElement => {
                 </button>
               </div>
             </div>
-            <p className="text-red-500 text-sm mt-1">{errorMsg && errorMsg}</p>
+            {/* <p className="text-red-500 text-sm mt-1">{errorMsg && errorMsg}</p> */}
           </>
         )}
       </div>

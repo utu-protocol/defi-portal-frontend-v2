@@ -1,5 +1,5 @@
 import axios, { AxiosResponse, CancelToken } from 'axios';
-
+import { CORE_API_URL, DEFI_URL } from '../Config';
 export interface IRelationshipPath {
   targetEntity: {
     relationship: {
@@ -32,29 +32,31 @@ export interface IProtocolsResult {
 }
 
 const apiRequest = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_UTU_API_BASE_URL,
+  baseURL: CORE_API_URL,
   headers: {
     'UTU-Trust-Api-Client-Id': 'defiPortal'
   }
 });
 
 const defiRequest = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_UTU_DEFI_URL
+  baseURL: DEFI_URL
 });
 
 export const getSortedProviders = async (address: string, cancelToken: CancelToken, callSubscribe?: boolean): Promise<AxiosResponse<IProtocolsResult>> => {
-
+  const addressConverted = String(address).toLowerCase();
   const sourceCriteria = encodeURIComponent(JSON.stringify({
     "type": "Address",
-    "ids": { address: address.toLowerCase() }
+    "ids": { address: addressConverted }
   }));
 
+  
+
   if (callSubscribe) {
-    await defiRequest.post(`subscribe/${address}`, undefined, { cancelToken });
+    await defiRequest.post(`subscribe/${addressConverted}`, undefined, { cancelToken });
   }
 
   const response = await apiRequest.get(
-    `${process.env.NEXT_PUBLIC_UTU_API_BASE_URL}/ranking?sourceCriteria=${sourceCriteria}&targetType=DeFiProtocol`,
+    `${CORE_API_URL }/ranking?sourceCriteria=${sourceCriteria}&targetType=DeFiProtocol`,
     { cancelToken }
   );
 

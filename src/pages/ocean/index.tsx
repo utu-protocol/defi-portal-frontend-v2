@@ -1,40 +1,119 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { ReactElement, useEffect, useState } from 'react'
+import { ReactElement, useEffect, useMemo } from 'react'
 
-import Table from '../../components/Table'
+import Table from '../../components/Table';
 import Layout from '../../components/Layout'
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { fetchAssets } from '../../redux/actions/ocean.actions'
+import Loader from '../../components/Loader'
+import { Link } from 'react-router-dom';
 
-export const Home = (): ReactElement => {
-  const [list, setList] = useState([])
-  const { address } = useSelector((state: any) => ({
-    address: state.address,
+const intervalSeconds = 60
+let interval: any
+
+export const Ocean = (): ReactElement => {
+  const dispatch = useDispatch()
+  const { assets, loading } = useSelector((state: any) => ({
+    assets: state.ocean.assets,
+    loading: state.ocean.loading,
   }))
-  const fetchData = async () => {
-    const data = {
-      sourceCriteria: JSON.stringify({
-        type: 'User',
-        ids: { address },
-      }),
-      targetType: 'Asset',
-    }
-    const res = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_UTU_API_BASE_URL
-      }/ranking?${new URLSearchParams(Object.entries(data)).toString()}`
-    )
-    const { result } = await res.json()
-    setList(result)
-  }
-
   useEffect(() => {
-    fetchData()
-  }, [address])
+    dispatch(fetchAssets())
+    interval = setInterval(function () {
+      dispatch(fetchAssets())
+    }, intervalSeconds * 1000)
+    
+    return () => {
+      clearInterval(interval)
+    };
+  }, []);
+
+
+  const data = useMemo(
+    () => {
+      return assets.map(({ entity, summaryText }: any) => ({
+        col1: {
+          name: entity.name,
+          address: entity.ids.address_datatoken,
+          publisher: entity.properties.PublishedBy
+        },
+        col2: entity.properties.Purgatory ? 1 : 0,
+        col3: entity.properties.PublishedBy,
+        col4: summaryText,
+        col5: entity.properties.Consumed,
+      }))
+    },
+    [assets]
+  );
+
+  const columns = useMemo(
+    () => [
+      {
+        Header: 'Name',
+        id: 'name',
+        accessor: 'col1',
+        Cell: ({ value }: any) => {
+          return (<Link to={`/ocean-market/${value.address}`}>
+            <div className="text-sm font-medium text-gray-900">{value.name}</div>
+            <div className="text-sm text-gray-500">{value.publisher}</div>
+          </Link>)
+        }
+      },
+      {
+        id: 'status',
+        Header: 'Status',
+        accessor: 'col2',
+        Cell: ({ value }: any) => {
+          return (<>
+            <span
+              className={
+                !value
+                  ? 'px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800'
+                  : 'px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800'
+              }
+            >
+              {!value ? 'Active' : 'Purgatory'}
+            </span>
+          </>)
+        }
+      },
+      {
+        id: 'publisher',
+        Header: 'Publisher',
+        accessor: 'col3',
+      },
+      {
+        id: 'your-network',
+        Header: 'Your Network',
+        accessor: 'col4',
+        highlight: true,
+      },
+      {
+        id: 'times-consumed',
+        Header: 'Times Consumed',
+        accessor: 'col5',
+      }
+    ],
+    []
+  );
+
   return (
     <Layout title="Ocean Market">
-      <Table list={list} />
+      {loading && (!assets || !assets.length) ? (
+        <div className="flex flex-col max-w-7xl  px-8 mt-8  mx-auto ">
+          <Loader />{' '}
+        </div>
+      ) : (
+        <Table columns={columns} data={data} initialSortBy={[
+          { id: 'status' },
+          { id: 'your-network', desc: true },
+          { id: 'times-consumed', desc: true },
+          { id: 'name', desc: true }
+        ]} />
+      )}
     </Layout>
   )
 }
 
-export default Home
+export default Ocean

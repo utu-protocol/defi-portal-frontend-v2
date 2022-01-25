@@ -1,7 +1,8 @@
+import { ethers } from 'ethers'
 import supportedChains from './chains'
 import { IChainData } from './types'
 
-export function getChainData(chainId?: number): IChainData {
+export function getChainData(chainId?: number): IChainData | null {
   if (!chainId) {
     return null
   }
@@ -10,7 +11,7 @@ export function getChainData(chainId?: number): IChainData {
   )[0]
 
   if (!chainData) {
-    throw new Error('ChainId missing or not supported')
+    return null
   }
 
   const API_KEY = '460f40a260564ac4a4f4b3fffb032dad'
@@ -35,5 +36,6 @@ export function ellipseAddress(address = '', width = 4): string {
   if (!address) {
     return ''
   }
-  return `${address.slice(0, width)}...${address.slice(-width)}`
+  const value = ethers.utils.getAddress(address);
+  return `${value.slice(0, width)}...${value.slice(-width)}`
 }

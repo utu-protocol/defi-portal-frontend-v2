@@ -1,13 +1,33 @@
-import { createStore, applyMiddleware } from 'redux'
+import { configureStore, Store } from '@reduxjs/toolkit'
+import { combineReducers } from 'redux'
+import storage from 'redux-persist/lib/storage'
+import walletReducer from './reducers/wallet.reducers'
+import oceanReducer from './reducers/ocean.reducers';
+import defiReducer from './reducers/defi.reduces'
+import { persistReducer, persistStore } from 'redux-persist'
 import thunk from 'redux-thunk'
 
-import { createWrapper } from 'next-redux-wrapper'
-import reducer from './rootReducer'
+const reducers = combineReducers({
+  wallet: walletReducer,
+  ocean: oceanReducer,
+  defi: defiReducer,
+})
+const persistConfig = {
+  key: 'utu-defi-dashboard',
+  storage,
+  whitelist: ['wallet'],
+}
 
-// create a makeStore function
-const makeStore = (): any => createStore(reducer, applyMiddleware(thunk))
+const persistedReducer = persistReducer(persistConfig, reducers)
 
-// export an assembled wrapper
-export const wrapper = createWrapper(makeStore)
+const store = configureStore({
+  reducer: persistedReducer,
+  devTools: process.env.NODE_ENV !== 'production',
+  middleware: [thunk],
+})
 
-export default makeStore
+export const persistor = persistStore(store as Store<any, any>)
+
+export type AppDispatch = typeof store.dispatch
+
+export default store

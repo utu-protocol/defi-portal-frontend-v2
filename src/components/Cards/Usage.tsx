@@ -1,5 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 import UserAvatar from '../UserAvatar'
+import { ethers } from 'ethers'
 
 export function StatColumn({
   title,
@@ -25,15 +26,18 @@ export function StatColumn({
 
 export function CardDetails({
   details,
+  cardTitle,
   consumersText,
   liquidityText,
 }: {
   details: any
+  cardTitle: string
   consumersText: string
   liquidityText: string
 }): JSX.Element {
-  const sliceAddress = (address) => {
-    const characters = address.split('')
+  const sliceAddress = (address: string) => {
+    const value = ethers.utils.getAddress(address);
+    const characters = value.split('')
     const slices = []
     slices.push(characters.slice(0, 4))
     slices.push(characters.slice(4, 8))
@@ -50,7 +54,7 @@ export function CardDetails({
       <div className="bg-yellow-50 border border-yellow-200 overflow-hidden rounded-lg">
         <div className="py-3 px-7">
           <div className="text-xs leading-4 font-medium tracking-wider uppercase text-yellow-900">
-            USAGE of this data assets
+            {cardTitle}
           </div>
         </div>
         <div className="flex justify-between divide-x divide-yellow-200 border-yellow-200 border-t border-t-solid">
@@ -69,7 +73,7 @@ export function CardDetails({
       <div className="mb-12">
         <div className="flex flex-row px-5">
           <div className="flex flex-col w-1/2">
-            {details.consumers.sampleAddresses.slice(0, 2).map((sample, i) => (
+            {details.consumers.sampleAddresses.slice(0, 2).map((sample: any, i: number) => (
               <div
                 key={`consumer-list-item${i}`}
                 className="flex items-center py-2 border-solid border-b border-gray-200 text-sm leading-5 font-normal text-gray-500 pr-5"
@@ -85,7 +89,7 @@ export function CardDetails({
           <div className="flex flex-col w-1/2">
             {details.liquidityProviders.sampleAddresses
               .slice(0, 2)
-              .map((sample, i) => (
+              .map((sample: any, i: number) => (
                 <div
                   key={`liquidity-list-item${i}`}
                   className="flex items-center py-2 border-solid border-b border-gray-200 text-sm leading-5 font-normal text-gray-500 pl-5"
@@ -100,9 +104,9 @@ export function CardDetails({
           </div>
         </div>
         <div className="text-center pt-4">
-          <button className="shadow-sm border border-solid border-gray-300 bg-white text-xs leading-4 font-medium text-gray-700 py-2 px-3 rounded">
+          {/* <button className="shadow-sm border border-solid border-gray-300 bg-white text-xs leading-4 font-medium text-gray-700 py-2 px-3 rounded">
             See all
-          </button>
+          </button> */}
         </div>
       </div>
       {/* <ul className="divide-y divide-gray-300"></ul> */}
@@ -119,6 +123,7 @@ export default function UsageCard({ stats }: { stats: any }): JSX.Element {
       {stats.networkInteraction && (
         <CardDetails
           details={stats.networkInteraction}
+          cardTitle="Usage of this data asset"
           consumersText="In your network consumed this data asset"
           liquidityText="In your network provided liquidity for this data asset"
         />
@@ -126,6 +131,7 @@ export default function UsageCard({ stats }: { stats: any }): JSX.Element {
       {stats.publisherInteraction && (
         <CardDetails
           details={stats.publisherInteraction}
+          cardTitle="Usage of other data asset by the same publisher"
           consumersText="In your network consumed data assets of this data asset's publisher"
           liquidityText="In your network provided liquidity for  this data asset's publisher"
         />
