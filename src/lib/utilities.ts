@@ -1,4 +1,4 @@
-import Web3 from 'web3'
+import { ethers } from 'ethers'
 import supportedChains from './chains'
 import { IChainData } from './types'
 
@@ -36,6 +36,6 @@ export function ellipseAddress(address = '', width = 4): string {
   if (!address) {
     return ''
   }
-  const value = Web3.utils.toChecksumAddress(address);
+  const value = ethers.utils.getAddress(address);
   return `${value.slice(0, width)}...${value.slice(-width)}`
 }
