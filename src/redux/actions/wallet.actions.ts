@@ -43,6 +43,17 @@ export const connect =
   async (dispatch: any) => {
     provider = await web3Modal.connect()
 
+    dispatch(getWallet())
+
+    if (authenticate) {
+      await dispatch(connectApi())
+    }
+
+    dispatch(subscribeProvider())
+  }
+export const getWallet =
+  () =>
+  async (dispatch: any) => {
     // We plug the initial `provider` into ethers.js and get back
     // a Web3Provider. This will add on methods from ethers.js and
     // event listeners such as `.on()` will be different.
@@ -62,14 +73,12 @@ export const connect =
         chainId: network.chainId,
       },
     })
-
-    if (authenticate) {
-      await dispatch(connectApi())
-    }
-    
-    dispatch(subscribeProvider(provider));
   }
-
+export const initWallet = () => async (dispatch: any, getState: any) => {
+  if (web3Modal && web3Modal.cachedProvider) {
+    dispatch(connect())
+  }
+}
 export const disconnect = () => async (dispatch: any, getState: any) => {
   provider = await web3Modal.cachedProvider
   await web3Modal.clearCachedProvider()
@@ -101,20 +110,34 @@ export const storeAddress =
     return true
   }
 
-export const subscribeProvider = (provider: any) => async (dispatch: any) => {
-  if (!provider.on) {
+export const subscribeProvider = () => async (dispatch: any) => {
+  if (!provider) {
     return
   }
-  provider.on('disconnect', () => dispatch(disconnect()))
   provider.on('accountsChanged', async (accounts: string[]) => {
     if (!accounts.length) {
       return dispatch(disconnect())
     }
-    await dispatch(storeAddress({address: accounts[0]}))
+    await dispatch(storeAddress({ address: accounts[0] }))
   })
-  // provider.on('chainChanged', async (chainId: number) => {
-  //   await dispatch(setChainId(chainId))
-  //   const networkId = await web3.eth.net.getId()
-  //   await dispatch(setNetworkId(networkId))
-  // })
+
+  // Subscribe to chainId change
+  provider.on('chainChanged', (chainId: number) => {
+    dispatch({
+      type: 'SET_CHAIN_ID',
+      payload: {
+        chainId,
+      },
+    })
+  })
+
+  // Subscribe to provider connection
+  provider.on('connect', (info: { chainId: number }) => {
+    dispatch(getWallet())
+  })
+
+  // Subscribe to provider disconnection
+  provider.on('disconnect', (error: { code: number; message: string }) => {
+    console.error(error)
+  })
 }
