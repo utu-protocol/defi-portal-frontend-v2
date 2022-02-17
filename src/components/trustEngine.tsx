@@ -41,6 +41,8 @@ export default function TrustEngine({
          <x-utu-feedback-form-popup source-uuid={address} target-uuid={protocolAddress} transaction-id={address}>
           </x-utu-feedback-form-popup> : ''}
       </x-utu-root></div>}
+        <x-utu-feedback-form-popup source-uuid={address} target-uuid={protocolAddress} transaction-id={address}>
+        </x-utu-feedback-form-popup>
       {itemsToShow.length > 0 ? (<div className='flex items-center space-x-2 mt-2'>
       <div className='flex flex-shrink-0 space-x-2'>
         {itemsToShow.map((item) => {
