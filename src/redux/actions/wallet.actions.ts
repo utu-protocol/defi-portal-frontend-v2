@@ -7,7 +7,9 @@ import { addressSignatureVerification } from '@ututrust/web-components'
 // @ts-ignore
 import EthereumAddress from 'ethereum-address'
 import { API_BASE_URL } from '../../Config'
-const INFURA_ID = '460f40a260564ac4a4f4b3fffb032dad'
+const INFURA_ID = '460f40a260564ac4a4f4b3fffb032dad';
+
+export const UTU_API_AUTH_TOKEN = "utu-identity-data";
 
 const providerOptions = {
   walletconnect: {
@@ -34,8 +36,7 @@ export const getWeb3Modal = (): any => {
 }
 
 export const connectApi = () => async (dispatch: any, getState: any) => {
-  const { address } = getState().wallet
-  return addressSignatureVerification(API_BASE_URL, address, provider)
+  return addressSignatureVerification(API_BASE_URL);
 }
 
 export const connect =
@@ -141,3 +142,10 @@ export const subscribeProvider = () => async (dispatch: any) => {
     console.error(error)
   })
 }
+
+export const getUTUApiAccessToken = async () => {
+  const utu_api_token = await localStorage.getItem(UTU_API_AUTH_TOKEN);
+  if (!utu_api_token) return null;
+  const {access_token} = JSON.parse(utu_api_token);
+  return access_token;
+};
