@@ -7,7 +7,7 @@ import Navigation from '../Navigation'
 import styles from './layout.module.css'
 import {
   connect as connectAction,
-  connectApi,
+  initWallet,
   disconnect as disconnectAction,
   getWeb3Modal,
 } from '../../redux/actions/wallet.actions'
@@ -34,10 +34,8 @@ export default function Layout({
 
   // Auto connect to the cached provider
   useEffect(() => {
-    if (web3Modal.cachedProvider) {
-      connect(false)
-    }
-  }, [connect])
+    dispatch(initWallet())
+  }, [])
   
   const chainData = getChainData(chainId)
 
