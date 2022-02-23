@@ -7,9 +7,9 @@ import { addressSignatureVerification } from '@ututrust/web-components'
 // @ts-ignore
 import EthereumAddress from 'ethereum-address'
 import { API_BASE_URL } from '../../Config'
-const INFURA_ID = '460f40a260564ac4a4f4b3fffb032dad';
+const INFURA_ID = '460f40a260564ac4a4f4b3fffb032dad'
 
-export const UTU_API_AUTH_TOKEN = "utu-identity-data";
+export const UTU_API_AUTH_TOKEN = 'utu-identity-data'
 
 const providerOptions = {
   walletconnect: {
@@ -36,7 +36,7 @@ export const getWeb3Modal = (): any => {
 }
 
 export const connectApi = () => async (dispatch: any, getState: any) => {
-  return addressSignatureVerification(API_BASE_URL);
+  return addressSignatureVerification(API_BASE_URL, provider)
 }
 
 export const connect =
@@ -44,7 +44,7 @@ export const connect =
   async (dispatch: any) => {
     provider = await web3Modal.connect()
 
-    dispatch(getWallet())
+    await dispatch(getWallet())
 
     if (authenticate) {
       await dispatch(connectApi())
@@ -52,29 +52,26 @@ export const connect =
 
     dispatch(subscribeProvider())
   }
-export const getWallet =
-  () =>
-  async (dispatch: any) => {
-    // We plug the initial `provider` into ethers.js and get back
-    // a Web3Provider. This will add on methods from ethers.js and
-    // event listeners such as `.on()` will be different.
-    const web3Provider = new providers.Web3Provider(provider)
 
-    const signer = web3Provider.getSigner()
-    const address = await signer.getAddress()
+export const getWallet = () => async (dispatch: any) => {
+  // We plug the initial `provider` into ethers.js and get back
+  // a Web3Provider. This will add on methods from ethers.js and
+  // event listeners such as `.on()` will be different.
+  const web3Provider = new providers.Web3Provider(provider)
 
-    const network = await web3Provider.getNetwork()
-
-    await dispatch({
-      type: 'SET_WEB3_PROVIDER',
-      payload: {
-        provider: {},
-        web3Provider: {},
-        address,
-        chainId: network.chainId,
-      },
-    })
-  }
+  const signer = web3Provider.getSigner()
+  const address = await signer.getAddress()
+  const network = await web3Provider.getNetwork()
+  await dispatch({
+    type: 'SET_WEB3_PROVIDER',
+    payload: {
+      provider: {},
+      web3Provider: {},
+      address,
+      chainId: network.chainId,
+    },
+  })
+}
 export const initWallet = () => async (dispatch: any, getState: any) => {
   if (web3Modal && web3Modal.cachedProvider) {
     dispatch(connect())
@@ -144,8 +141,8 @@ export const subscribeProvider = () => async (dispatch: any) => {
 }
 
 export const getUTUApiAccessToken = async () => {
-  const utu_api_token = await localStorage.getItem(UTU_API_AUTH_TOKEN);
-  if (!utu_api_token) return null;
-  const {access_token} = JSON.parse(utu_api_token);
-  return access_token;
-};
+  const utu_api_token = await localStorage.getItem(UTU_API_AUTH_TOKEN)
+  if (!utu_api_token) return null
+  const { access_token } = JSON.parse(utu_api_token)
+  return access_token
+}
