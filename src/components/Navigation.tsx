@@ -42,6 +42,9 @@ export default function Navigation({
     web3p = localStorage?.getItem('WEB3_CONNECT_CACHED_PROVIDER')
   }
   const router = useLocation()
+  const isConnected = () => {
+    return !(!address && !web3p && !web3Provider);
+  }
   return (
     <>
       <Disclosure
@@ -105,7 +108,7 @@ export default function Navigation({
 
                   <div className="hidden sm:block sm:ml-6">
                     <div className="flex space-x-4">
-                      {navigation.map((item) => (
+                      {isConnected() && navigation.map((item) => (
                         <Link key={item.name} to={item.href} className={classNames(
                           item.href === router.pathname
                             ? 'bg-gray-900 text-white'
@@ -135,7 +138,7 @@ export default function Navigation({
                     </div>
                   )}
 
-                  {!address && !web3p && !web3Provider && (
+                  {!isConnected() && (
                     <button
                       className="w-full border-white border-2 space-x-3 flex-row flex justify-between  rounded-md shadow pr-3 py-2 bg-transparent text-white font-mediumnhover:bg-white hover:bg-white hover:text-primary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
                       type="button"
@@ -234,17 +237,17 @@ export default function Navigation({
             <Disclosure.Panel className="sm:hidden">
               <div className="px-2 pt-2 pb-3 space-y-1">
                 {navigation.map((item) => (
-                  <Link key={item.name} to={item.href}  className={classNames(
-                        item.href === router.pathname
-                          ? 'bg-gray-900 text-white'
-                          : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                        'block px-3 py-2 rounded-md text-base font-medium'
-                      )}
-                      aria-current={
-                        item.href === router.pathname ? 'page' : undefined
-                      }
-                    >
-                      {item.name}
+                  <Link key={item.name} to={item.href} className={classNames(
+                    item.href === router.pathname
+                      ? 'bg-gray-900 text-white'
+                      : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                    'block px-3 py-2 rounded-md text-base font-medium'
+                  )}
+                    aria-current={
+                      item.href === router.pathname ? 'page' : undefined
+                    }
+                  >
+                    {item.name}
                   </Link>
                 ))}
               </div>
