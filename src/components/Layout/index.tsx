@@ -26,8 +26,7 @@ export default function Layout({
   const dispatch = useDispatch()
   // const [isLoading, setLoading] = useState(false)
   const connect = useCallback(async (reload = true) => {
-    await dispatch(connectAction(reload));
-    if (reload) window.location.reload();
+    await dispatch(connectAction());
   }, [])
 
   const disconnect = useCallback(() => dispatch(disconnectAction()), [provider])

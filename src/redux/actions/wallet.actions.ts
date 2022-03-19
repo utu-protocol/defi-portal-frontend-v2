@@ -36,22 +36,17 @@ export const getWeb3Modal = (): any => {
 }
 
 export const connectApi = () => async (dispatch: any, getState: any) => {
+  console.log('connecting api ');
   return addressSignatureVerification(API_BASE_URL, provider)
 }
 
-export const connect =
-  (authenticate = false) =>
-  async (dispatch: any) => {
-    provider = await web3Modal.connect()
+export const connect = () => async (dispatch: any) => {
+  provider = await web3Modal.connect()
 
-    await dispatch(getWallet())
+  await dispatch(getWallet())
 
-    if (authenticate) {
-      await dispatch(connectApi())
-    }
-
-    dispatch(subscribeProvider())
-  }
+  dispatch(subscribeProvider())
+}
 
 export const getWallet = () => async (dispatch: any) => {
   // We plug the initial `provider` into ethers.js and get back
@@ -86,8 +81,8 @@ export const disconnect = () => async (dispatch: any, getState: any) => {
   await dispatch({
     type: 'RESET_WEB3_PROVIDER',
   })
+  await localStorage.removeItem(UTU_API_AUTH_TOKEN);
   provider = null
-  window.location.reload()
 }
 
 export const storeAddress =
@@ -104,7 +99,6 @@ export const storeAddress =
       },
     })
 
-    window.location.reload()
     return true
   }
 
