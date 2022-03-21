@@ -193,6 +193,40 @@ const supportedChains: IChainData[] = [
       balance: '',
     },
   },
+  {
+    name: 'Matic(Polygon) Mainnet',
+    short_name: 'MATIC',
+    chain: 'Polygon',
+    network: 'polygon',
+    chain_id: 137,
+    network_id: 137,
+    rpc_url: 'https://rpc-mainnet.maticvigil.com',
+    explorer: 'https://polygonscan.com',
+    native_currency: {
+      name: 'MATIC',
+      symbol: 'MATIC',
+      decimals: 18,
+      contractAddress: '',
+      balance: '',
+    },
+  },
+  {
+    name: 'Polygon Testnet Mumbai',
+    short_name: 'maticmum',
+    chain: 'Polygon',
+    network: 'mumbai',
+    chain_id: 80001,
+    network_id: 80001,
+    rpc_url: 'https://rpc-mumbai.maticvigil.com',
+    explorer: 'https://mumbai.polygonscan.com',
+    native_currency: {
+      name: 'MATIC',
+      symbol: 'MATIC',
+      decimals: 18,
+      contractAddress: '',
+      balance: '',
+    },
+  },
 ]
 
 export default supportedChains

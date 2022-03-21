@@ -35,7 +35,6 @@ const AuthProvider = ({ children }: {
     }, [dispatch]);
 
     const checkIfAccessTokenExist = useCallback(async () => {
-        console.log('checking access token validity');
         const accessToken = await getUTUApiAccessToken();
         if (accessToken) return checkAccessTokenValidity();
         await dispatch(connectApi());

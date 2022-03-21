@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import Web3Modal from 'web3modal'
-import { providers } from 'ethers'
+import { providers, utils } from 'ethers'
 // @ts-ignore
 import { addressSignatureVerification } from '@ututrust/web-components'
 // @ts-ignore
 import EthereumAddress from 'ethereum-address'
-import { API_BASE_URL } from '../../Config'
+import { API_BASE_URL, CHAIN_ID } from '../../Config'
+import supportedChains from '../../lib/chains'
+
 const INFURA_ID = '460f40a260564ac4a4f4b3fffb032dad'
 
 export const UTU_API_AUTH_TOKEN = 'utu-identity-data'
@@ -36,7 +38,6 @@ export const getWeb3Modal = (): any => {
 }
 
 export const connectApi = () => async (dispatch: any, getState: any) => {
-  console.log('connecting api ');
   return addressSignatureVerification(API_BASE_URL, provider)
 }
 
@@ -57,6 +58,8 @@ export const getWallet = () => async (dispatch: any) => {
   const signer = web3Provider.getSigner()
   const address = await signer.getAddress()
   const network = await web3Provider.getNetwork()
+  const chainId = network.chainId
+  await switchNetwork(chainId)
   await dispatch({
     type: 'SET_WEB3_PROVIDER',
     payload: {
@@ -81,7 +84,7 @@ export const disconnect = () => async (dispatch: any, getState: any) => {
   await dispatch({
     type: 'RESET_WEB3_PROVIDER',
   })
-  await localStorage.removeItem(UTU_API_AUTH_TOKEN);
+  await localStorage.removeItem(UTU_API_AUTH_TOKEN)
   provider = null
 }
 
@@ -131,6 +134,35 @@ export const subscribeProvider = () => async (dispatch: any) => {
   // Subscribe to provider disconnection
   provider.on('disconnect', (error: { code: number; message: string }) => {
     console.error(error)
+  })
+}
+
+const switchNetwork = async (chainId: string | number) => {
+  if (Number(chainId) === Number(CHAIN_ID)) return
+
+  // @ts-ignore
+  const network = supportedChains.find(
+    (chain) => chain.chain_id === Number(CHAIN_ID)
+  )
+  if (!network) return
+  await provider.request({
+    method: 'wallet_addEthereumChain',
+    params: [
+      {
+        chainId: utils.hexStripZeros(utils.hexlify(network?.chain_id)),
+        chainName: network.name,
+        nativeCurrency: network.native_currency,
+        rpcUrls: [network.rpc_url],
+      },
+    ],
+  })
+  await provider.request({
+    method: 'wallet_switchEthereumChain',
+    params: [
+      {
+        chainId: utils.hexStripZeros(utils.hexlify(network.chain_id)),
+      },
+    ],
   })
 }
 
