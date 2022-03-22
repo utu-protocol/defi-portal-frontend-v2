@@ -38,7 +38,8 @@ export const getWeb3Modal = (): any => {
 }
 
 export const connectApi = () => async (dispatch: any, getState: any) => {
-  return addressSignatureVerification(API_BASE_URL, provider)
+  await addressSignatureVerification(API_BASE_URL, provider)
+  return window.location.reload()
 }
 
 export const connect = () => async (dispatch: any) => {
