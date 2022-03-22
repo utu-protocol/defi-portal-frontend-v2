@@ -32,9 +32,13 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+   
+    - name: Build
+      run: craco build
+
 
     - name: Run the tests
-      run: npm test -- --coverage
+      run: craco test
       
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
