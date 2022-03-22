@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x, 17.x]
+        node-version: [17.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -34,11 +34,11 @@ jobs:
       run: yarn install
    
     - name: Build
-      run: yarn build
+      run: craco build
 
 
     - name: Run the tests
-      run: yarn test
+      run: craco test
       
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
