@@ -34,11 +34,11 @@ jobs:
       run: yarn install
    
     - name: Build
-      run: craco build
+      run: yarn build
 
 
     - name: Run the tests
-      run: craco test
+      run: yarn test
       
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
