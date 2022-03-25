@@ -28,6 +28,9 @@ export default function TrustEngine({
   const { provider, web3Provider, address, chainId } = useSelector(
     (state: any) => state.wallet
   )
+
+  const lowerCaseAddress = address?.toLowerCase();
+
   const itemsToShow = (summaryImages || []).slice(0, countToShow)
   const itemsToHide = (summaryImages || []).length - itemsToShow.length
 
@@ -37,11 +40,11 @@ export default function TrustEngine({
     <div className='flex justify-around text-sm leading-5'>
       <div className="mx-8" >{summaryText}</div>
       <div className="flex flex-col w-80">
-        {summaryText == null ? '' : <div><x-utu-root source-uuid={address} target-type='product'>
+        {summaryText == null ? '' : <div><x-utu-root source-uuid={lowerCaseAddress} target-type='product'>
           <x-utu-feedback-details-popup target-uuid={protocolAddress}>
           </x-utu-feedback-details-popup>
           {summaryText.includes('You used') ?
-            <x-utu-feedback-form-popup source-uuid={address} target-uuid={protocolAddress} transaction-id={address} endorsement-network={process.env.REACT_APP_UTU_ENDORSEMENT_NETWORK}>
+            <x-utu-feedback-form-popup source-uuid={lowerCaseAddress} target-uuid={protocolAddress} transaction-id={address} endorsement-network={process.env.REACT_APP_UTU_ENDORSEMENT_NETWORK}>
             </x-utu-feedback-form-popup> : ''}
         </x-utu-root></div>}
         {itemsToShow.length > 0 ? (<div className='flex items-center space-x-2 mt-2'>
