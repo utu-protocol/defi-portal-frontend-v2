@@ -34,7 +34,6 @@ export default function TrustEngine({
   const itemsToShow = (summaryImages || []).slice(0, countToShow)
   const itemsToHide = (summaryImages || []).length - itemsToShow.length
 
-  console.log(protocolAddress);
 
   return <div className=''>
     <div className='flex justify-around text-sm leading-5'>
