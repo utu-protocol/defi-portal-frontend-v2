@@ -56,7 +56,8 @@ const supportedChains: IChainData[] = [
     network: 'goerli',
     chain_id: 5,
     network_id: 5,
-    rpc_url: 'https://goerli.infura.io/v3/%API_KEY%',
+    rpc_url: 'https://goerli.infura.io/v3/',
+    explorer: 'https://goerli.etherscan.io',
     native_currency: {
       symbol: 'ETH',
       name: 'Ethereum',

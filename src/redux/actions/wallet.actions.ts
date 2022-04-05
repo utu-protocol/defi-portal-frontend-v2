@@ -24,6 +24,7 @@ const providerOptions = {
 
 let web3Modal: any
 let provider: any
+let currentChainId: number
 
 if (typeof window !== 'undefined') {
   web3Modal = new Web3Modal({
@@ -59,8 +60,8 @@ export const getWallet = () => async (dispatch: any) => {
   const signer = web3Provider.getSigner()
   const address = await signer.getAddress()
   const network = await web3Provider.getNetwork()
-  const chainId = network.chainId
-  await switchNetwork(chainId)
+  currentChainId = network.chainId
+
   await dispatch({
     type: 'SET_WEB3_PROVIDER',
     payload: {
@@ -119,6 +120,8 @@ export const subscribeProvider = () => async (dispatch: any) => {
 
   // Subscribe to chainId change
   provider.on('chainChanged', (chainId: number) => {
+    currentChainId = chainId
+
     dispatch({
       type: 'SET_CHAIN_ID',
       payload: {
@@ -138,14 +141,18 @@ export const subscribeProvider = () => async (dispatch: any) => {
   })
 }
 
-const switchNetwork = async (chainId: string | number) => {
-  if (Number(chainId) === Number(CHAIN_ID)) return
+const requestNetworkChange = async (network: any) => {
+  await provider.request({
+    method: 'wallet_switchEthereumChain',
+    params: [
+      {
+        chainId: utils.hexStripZeros(utils.hexlify(network.chain_id)),
+      },
+    ],
+  })
+}
 
-  // @ts-ignore
-  const network = supportedChains.find(
-    (chain) => chain.chain_id === Number(CHAIN_ID)
-  )
-  if (!network) return
+const addNetwork = async (network: any) => {
   await provider.request({
     method: 'wallet_addEthereumChain',
     params: [
@@ -157,14 +164,25 @@ const switchNetwork = async (chainId: string | number) => {
       },
     ],
   })
-  await provider.request({
-    method: 'wallet_switchEthereumChain',
-    params: [
-      {
-        chainId: utils.hexStripZeros(utils.hexlify(network.chain_id)),
-      },
-    ],
-  })
+}
+
+export const switchNetwork = async () => {
+  console.log('currentchain id', currentChainId)
+  if (Number(currentChainId) === Number(CHAIN_ID)) return
+
+  // @ts-ignore
+  const network = supportedChains.find(
+    (chain) => chain.chain_id === Number(CHAIN_ID)
+  )
+  if (!network) return
+  try {
+    await requestNetworkChange(network);
+  } catch (e: any) {
+    if (e.code === 4902) {
+      await addNetwork(network);
+      await requestNetworkChange(network);
+    }
+  }
 }
 
 export const getUTUApiAccessToken = async () => {
