@@ -6,10 +6,10 @@ import { providers, utils } from 'ethers'
 import { addressSignatureVerification } from '@ututrust/web-components'
 // @ts-ignore
 import EthereumAddress from 'ethereum-address'
-import { API_BASE_URL, CHAIN_ID } from '../../Config'
+import { API_BASE_URL, CHAIN_ID, INFURA_ID } from '../../Config'
 import supportedChains from '../../lib/chains'
 
-const INFURA_ID = '460f40a260564ac4a4f4b3fffb032dad'
+
 
 export const UTU_API_AUTH_TOKEN = 'utu-identity-data'
 
@@ -17,8 +17,14 @@ const providerOptions = {
   walletconnect: {
     package: WalletConnectProvider, // required
     options: {
-      infuraId: INFURA_ID, // required
-    },
+      infuraId: INFURA_ID,
+      rpc: {
+          1: "https://mainnet.infura.io/v3/" + INFURA_ID,
+          42: "https://kovan.infura.io/v3/" + INFURA_ID,
+          137: "https://polygon-mainnet.infura.io/v3/" + INFURA_ID,
+          80001: "https://rpc-mumbai.maticvigil.com",
+      },
+  },
   },
 }
 
@@ -45,7 +51,9 @@ export const connectApi = () => async (dispatch: any, getState: any) => {
 
 export const connect = () => async (dispatch: any) => {
   provider = await web3Modal.connect()
-
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  window.utuWeb3Provider = provider;
   await dispatch(getWallet())
 
   dispatch(subscribeProvider())
@@ -176,11 +184,11 @@ export const switchNetwork = async () => {
   )
   if (!network) return
   try {
-    await requestNetworkChange(network);
+    await requestNetworkChange(network)
   } catch (e: any) {
     if (e.code === 4902) {
-      await addNetwork(network);
-      await requestNetworkChange(network);
+      await addNetwork(network)
+      await requestNetworkChange(network)
     }
   }
 }
@@ -191,3 +199,5 @@ export const getUTUApiAccessToken = async () => {
   const { access_token } = JSON.parse(utu_api_token)
   return access_token
 }
+
+export const getWalletProvider = () => provider

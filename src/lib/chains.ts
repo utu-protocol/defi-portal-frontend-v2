@@ -212,7 +212,7 @@ const supportedChains: IChainData[] = [
     },
   },
   {
-    name: 'Polygon Testnet Mumbai',
+    name: 'Mumbai',
     short_name: 'maticmum',
     chain: 'Polygon',
     network: 'mumbai',
