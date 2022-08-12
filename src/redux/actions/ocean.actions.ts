@@ -1,20 +1,21 @@
-import { CORE_API_URL } from "../../Config";
+import { apiRequest } from '../../api'
+import { CORE_API_URL } from '../../Config'
 
 export const setLoading = (value: boolean) => async (dispatch: any) => {
   dispatch({
     type: 'SET_OCEAN_LOADING',
     payload: {
-      loading: value
+      loading: value,
     },
   })
 }
 
-
 export const getAssetDetails =
   ({ token }: { token: string }) =>
   async (dispatch: any, getState: any) => {
-    dispatch(setLoading(true));
+    dispatch(setLoading(true))
     const address = getState().wallet.address
+
     const data = {
       sourceCriteria: JSON.stringify({
         type: 'Address',
@@ -27,21 +28,20 @@ export const getAssetDetails =
         },
       }),
     }
-    const res = await fetch(
-      `${
-        CORE_API_URL
-      }/interactionSummary?${new URLSearchParams(
+    const res = await apiRequest.get(
+      `${CORE_API_URL}/interactionSummary?${new URLSearchParams(
         Object.entries(data)
       ).toString()}`
     )
-    const { result } = await res.json()
-    dispatch(setLoading(false));
+
+    const { result } = res.data
+    dispatch(setLoading(false))
     return result
   }
 
 export const fetchAssets = () => async (dispatch: any, getState: any) => {
   const address = getState().wallet.address
-  dispatch(setLoading(true));
+  dispatch(setLoading(true))
   const data = {
     sourceCriteria: JSON.stringify({
       type: 'Address',
@@ -49,13 +49,13 @@ export const fetchAssets = () => async (dispatch: any, getState: any) => {
     }),
     targetType: 'Asset',
   }
-  try{
-    const res = await fetch(
+  try {
+    const res = await apiRequest.get(
       `${CORE_API_URL}/ranking?${new URLSearchParams(
         Object.entries(data)
       ).toString()}`
     )
-    const { result } = await res.json()
+    const { result } = res.data
 
     dispatch(setLoading(false))
 
@@ -66,9 +66,9 @@ export const fetchAssets = () => async (dispatch: any, getState: any) => {
       },
     })
     return result
-  }catch(e){
+  } catch (e) {
     // handle error
-    console.log(e);
-    return [];
+    console.log(e)
+    return []
   }
 }

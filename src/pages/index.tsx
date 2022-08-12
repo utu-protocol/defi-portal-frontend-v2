@@ -71,7 +71,7 @@ export const Home = (): ReactElement => {
                 <button
                   type="button"
                   onClick={() => {
-                    dispatch(connect(true))
+                    dispatch(connect())
                   }}
                   className="bg-primary w-full flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-white hover:shadow-md focus:outline-none transition duration-150 ease-in-out"
                 >
