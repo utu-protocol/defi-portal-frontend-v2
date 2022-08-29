@@ -18,7 +18,7 @@ clean:
 	@echo done
 
 install:
-	@echo install depencies
+	@echo install dependecies
 	yarn install
 
 build: clean build-dist
