@@ -21,7 +21,7 @@ const providerOptions = {
       rpc: {
           1: "https://mainnet.infura.io/v3/" + INFURA_ID,
           42: "https://kovan.infura.io/v3/" + INFURA_ID,
-          137: "https://polygon-mainnet.infura.io/v3/" + INFURA_ID,
+          137: "https://polygon-rpc.com",
           80001: "https://rpc-mumbai.maticvigil.com",
       },
   },
