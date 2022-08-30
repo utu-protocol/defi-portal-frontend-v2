@@ -21,7 +21,7 @@ install:
 	@echo install dependecies
 	npm install
 
-build: clean build-dist
+build: clean install build-dist
 
 build-dist:
 	@echo build release
