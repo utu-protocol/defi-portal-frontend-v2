@@ -19,13 +19,13 @@ clean:
 
 install:
 	@echo install dependecies
-	yarn install
+	npm install
 
 build: clean build-dist
 
 build-dist:
 	@echo build release
-	yarn build --prod
+	npm run build -- --prod
 	@echo done
 
 deploy-stage:
