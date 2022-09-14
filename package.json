@@ -16,7 +16,7 @@
     "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.18",
     "@types/react-table": "^7.7.6",
-    "@ututrust/web-components": "^1.1.24",
+    "@ututrust/web-components": "^1.1.27",
     "@walletconnect/web3-provider": "^1.8.0",
     "axios": "^0.27.2",
     "ethereum-address": "^0.0.4",
@@ -51,18 +51,11 @@
       "react-app/jest"
     ]
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+  "browserslist": [
+    ">0.2%",
+   "not dead",
+   "not op_mini all"
+ ],
   "devDependencies": {
     "@types/lodash.defer": "^4.1.6",
     "@types/lodash.truncate": "^4.4.6",
