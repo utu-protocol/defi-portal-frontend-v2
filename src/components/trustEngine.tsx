@@ -34,6 +34,7 @@ export default function TrustEngine({
   const itemsToShow = (summaryImages || []).slice(0, countToShow)
   const itemsToHide = (summaryImages || []).length - itemsToShow.length
 
+  const txId = address + new Date().getTime();
 
   return <div className=''>
     <div className='flex justify-around text-sm leading-5'>
@@ -44,7 +45,7 @@ export default function TrustEngine({
           </x-utu-feedback-details-popup>
           {
             summaryText != undefined ? summaryText.includes('You') ?
-              <x-utu-feedback-form-popup source-uuid={address} target-uuid={protocolAddress} transaction-id={address}
+              <x-utu-feedback-form-popup source-uuid={lowerCaseAddress} target-uuid={protocolAddress} transaction-id={txId}
                 endorsement-network={process.env.REACT_APP_UTU_ENDORSEMENT_NETWORK}>
               </x-utu-feedback-form-popup> : '' : ``
           }
