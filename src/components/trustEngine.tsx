@@ -44,7 +44,7 @@ export default function TrustEngine({
           </x-utu-feedback-details-popup>
           {
             summaryText != undefined ? summaryText.includes('You') ?
-              <x-utu-feedback-form-popup source-uuid={address} target-uuid={protocolAddress} transaction-id={address}
+              <x-utu-feedback-form-popup source-uuid={lowerCaseAddress} target-uuid={protocolAddress} transaction-id={address}
                 endorsement-network={process.env.REACT_APP_UTU_ENDORSEMENT_NETWORK}>
               </x-utu-feedback-form-popup> : '' : ``
           }
