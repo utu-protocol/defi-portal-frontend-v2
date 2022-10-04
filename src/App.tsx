@@ -6,7 +6,11 @@ import './styles/globals.css';
 function App() {
   useEffect(() => {
     if (SDK_ENV === 'production') {
-      window.dispatchEvent(new Event(EVENT_UTU_CONFIG));
+      window.dispatchEvent(new CustomEvent(EVENT_UTU_CONFIG, {
+        detail: {
+          production: true,
+        }
+      }));
     }
   }, [])
   return (

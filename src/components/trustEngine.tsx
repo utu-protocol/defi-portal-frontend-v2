@@ -43,10 +43,10 @@ export default function TrustEngine({
           <x-utu-feedback-details-popup target-uuid={protocolAddress}>
           </x-utu-feedback-details-popup>
           {
-            summaryText != undefined ? summaryText.includes('You') ?
+            summaryText?.includes('You') ?
               <x-utu-feedback-form-popup source-uuid={address} target-uuid={protocolAddress} transaction-id={address}
                 endorsement-network={process.env.REACT_APP_UTU_ENDORSEMENT_NETWORK}>
-              </x-utu-feedback-form-popup> : '' : ``
+              </x-utu-feedback-form-popup> : ''
           }
         </x-utu-root></div>
         {itemsToShow.length > 0 ? (<div className='flex items-center space-x-2 mt-2'>
