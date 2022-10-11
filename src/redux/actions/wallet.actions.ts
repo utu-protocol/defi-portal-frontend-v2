@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import WalletConnectProvider from '@walletconnect/web3-provider'
-import Web3Modal from 'web3modal'
 import { providers, utils } from 'ethers'
+import Web3Modal from 'web3modal'
 // @ts-ignore
 import { addressSignatureVerification } from '@ututrust/web-components'
 // @ts-ignore
 import EthereumAddress from 'ethereum-address'
-import { API_BASE_URL, CHAIN_ID, INFURA_ID } from '../../Config'
+import { CHAIN_ID, INFURA_ID } from '../../Config'
 import supportedChains from '../../lib/chains'
 
 
@@ -45,7 +45,7 @@ export const getWeb3Modal = (): any => {
 }
 
 export const connectApi = () => async (dispatch: any, getState: any) => {
-  await addressSignatureVerification(API_BASE_URL, provider)
+  await addressSignatureVerification(null, provider)
   return window.location.reload()
 }
 
