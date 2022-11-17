@@ -195,7 +195,7 @@ const supportedChains: IChainData[] = [
     },
   },
   {
-    name: 'Matic(Polygon) Mainnet',
+    name: 'Polygon Mainnet',
     short_name: 'MATIC',
     chain: 'Polygon',
     network: 'polygon',

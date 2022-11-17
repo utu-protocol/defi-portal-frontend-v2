@@ -55,7 +55,7 @@ export const connect = () => async (dispatch: any) => {
   // @ts-ignore
   window.utuWeb3Provider = provider;
   await dispatch(getWallet())
-
+  // dispatch(switchNetwork());
   dispatch(subscribeProvider())
 }
 
@@ -175,7 +175,6 @@ const addNetwork = async (network: any) => {
 }
 
 export const switchNetwork = async () => {
-  console.log('currentchain id', currentChainId)
   if (Number(currentChainId) === Number(CHAIN_ID)) return
 
   // @ts-ignore
