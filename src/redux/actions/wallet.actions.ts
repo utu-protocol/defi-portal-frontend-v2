@@ -55,7 +55,6 @@ export const connect = () => async (dispatch: any) => {
   // @ts-ignore
   window.utuWeb3Provider = provider;
   await dispatch(getWallet())
-  // dispatch(switchNetwork());
   dispatch(subscribeProvider())
 }
 
